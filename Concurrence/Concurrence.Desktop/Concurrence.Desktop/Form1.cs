@@ -7,9 +7,16 @@ namespace Concurrence.Desktop
             InitializeComponent();
         }
 
-        private void btnStart_Click(object sender, EventArgs e)
+        private async void btnStart_Click(object sender, EventArgs e)
         {
+            Thread.Sleep(5000); 
+        }
 
+        private async void btnStartAsync_Click(object sender, EventArgs e)
+        {
+            this.lblProcesing.Visible = true;
+            await Task.Delay(TimeSpan.FromSeconds(5));
+            this.lblProcesing.Visible = false;
         }
     }
 }
