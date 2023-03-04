@@ -34,13 +34,15 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.btnStartAsync = new System.Windows.Forms.Button();
             this.lblProcesing = new System.Windows.Forms.Label();
+            this.txtInput = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(55, 45);
+            this.btnStart.Location = new System.Drawing.Point(55, 74);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(117, 25);
             this.btnStart.TabIndex = 0;
@@ -51,7 +53,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(55, 94);
+            this.pictureBox1.Location = new System.Drawing.Point(55, 123);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(135, 135);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -61,7 +63,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(247, 94);
+            this.pictureBox2.Location = new System.Drawing.Point(247, 123);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(261, 172);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -70,7 +72,7 @@
             // 
             // btnStartAsync
             // 
-            this.btnStartAsync.Location = new System.Drawing.Point(247, 45);
+            this.btnStartAsync.Location = new System.Drawing.Point(247, 74);
             this.btnStartAsync.Name = "btnStartAsync";
             this.btnStartAsync.Size = new System.Drawing.Size(117, 25);
             this.btnStartAsync.TabIndex = 3;
@@ -81,18 +83,37 @@
             // lblProcesing
             // 
             this.lblProcesing.AutoSize = true;
-            this.lblProcesing.Location = new System.Drawing.Point(378, 50);
+            this.lblProcesing.Location = new System.Drawing.Point(378, 79);
             this.lblProcesing.Name = "lblProcesing";
             this.lblProcesing.Size = new System.Drawing.Size(81, 17);
             this.lblProcesing.TabIndex = 4;
             this.lblProcesing.Text = "processing...";
             this.lblProcesing.Visible = false;
             // 
+            // txtInput
+            // 
+            this.txtInput.Location = new System.Drawing.Point(173, 31);
+            this.txtInput.Name = "txtInput";
+            this.txtInput.Size = new System.Drawing.Size(191, 25);
+            this.txtInput.TabIndex = 5;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(55, 34);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(43, 17);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Name";
+            this.label1.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtInput);
             this.Controls.Add(this.lblProcesing);
             this.Controls.Add(this.btnStartAsync);
             this.Controls.Add(this.pictureBox2);
@@ -114,5 +135,7 @@
         private PictureBox pictureBox2;
         private Button btnStartAsync;
         private Label lblProcesing;
+        private TextBox txtInput;
+        private Label label1;
     }
 }
