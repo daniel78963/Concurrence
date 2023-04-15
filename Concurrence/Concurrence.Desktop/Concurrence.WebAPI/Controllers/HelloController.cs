@@ -6,10 +6,13 @@ namespace Concurrence.WebAPI.Controllers
     [ApiController]
     public class HelloController : ControllerBase
     {
-        [HttpGet("name")]
+        [HttpGet("{name}")]
         public ActionResult<string> GetGreetings(string name)
         {
             //https://localhost:7091/greetings/name?name=daniel
+            //si se colocan las llaves al HttpGet
+            //https://localhost:7091/greetings/daniel
+
             return $"Hello {name}";
         }
 
