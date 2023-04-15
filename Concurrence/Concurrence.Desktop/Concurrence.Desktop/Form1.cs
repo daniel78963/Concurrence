@@ -10,7 +10,7 @@ namespace Concurrence.Desktop
         public Form1()
         {
             InitializeComponent();
-            apiURL = "https://localhost:7091/";
+            apiURL = "https://localhost:7091";
             httpCLient = new HttpClient();
         }
 
@@ -27,7 +27,9 @@ namespace Concurrence.Desktop
             // cosa mientras lo del await termina
             await Wait();
             var name = txtInput.Text;
-            MessageBox.Show("pasaron los 5 seg");
+            var greetings = await GetGreetings(name);
+            //MessageBox.Show("pasaron los 5 seg");
+            MessageBox.Show(greetings);
             this.lblProcesing.Visible = false;
         }
 

@@ -92,7 +92,7 @@
             // 
             // txtInput
             // 
-            this.txtInput.Location = new System.Drawing.Point(173, 31);
+            this.txtInput.Location = new System.Drawing.Point(170, 32);
             this.txtInput.Name = "txtInput";
             this.txtInput.Size = new System.Drawing.Size(191, 25);
             this.txtInput.TabIndex = 5;
