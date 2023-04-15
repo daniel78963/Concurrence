@@ -9,8 +9,14 @@ namespace Concurrence.WebAPI.Controllers
         [HttpGet("name")]
         public ActionResult<string> GetGreetings(string name)
         {
+            //https://localhost:7091/greetings/name?name=daniel
             return $"Hello {name}";
         }
 
+        [HttpGet]
+        public ActionResult<string> GetSaludo(string name)
+        {
+            return $"Hello {name}";
+        }
     }
 }

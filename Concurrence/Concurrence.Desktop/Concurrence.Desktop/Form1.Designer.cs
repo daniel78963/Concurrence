@@ -105,7 +105,6 @@
             this.label1.Size = new System.Drawing.Size(43, 17);
             this.label1.TabIndex = 6;
             this.label1.Text = "Name";
-            this.label1.Visible = false;
             // 
             // Form1
             // 
