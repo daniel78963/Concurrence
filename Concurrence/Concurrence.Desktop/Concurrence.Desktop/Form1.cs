@@ -27,21 +27,31 @@ namespace Concurrence.Desktop
             // cosa mientras lo del await termina
             await Wait();
             var name = txtInput.Text;
-            var greetings = await GetGreetings(name);
+            try
+            {
+               //Si ocurre una excepción dentro de la llamada al servicio y no tiene el await, la excepción nunca se va a ver
+                var greetings = await GetGreetings(name);
+                MessageBox.Show(greetings);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            } 
+
             //MessageBox.Show("pasaron los 5 seg");
-            MessageBox.Show(greetings);
             this.lblProcesing.Visible = false;
         }
 
         private async Task Wait()
         {
-            await Task.Delay(TimeSpan.FromSeconds(5));
+            await Task.Delay(TimeSpan.FromSeconds(0));
         }
 
         private async Task<string> GetGreetings(string name)
         {
             using (var response = await httpCLient.GetAsync($"{apiURL}/greetings/{name}"))
             {
+                response.EnsureSuccessStatusCode();
                 var saludo = await response.Content.ReadAsStringAsync();
                 return saludo;
             }
