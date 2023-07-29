@@ -60,7 +60,7 @@ namespace Concurrence.Desktop
             }
         }
 
-        private List<string> GetCreditCards(int quantityCards)
+        private List<string> GetCreditCardsList(int quantityCards)
         {
             var creditCards = new List<string>();
             for (int i = 0; i < quantityCards; i++)
@@ -70,15 +70,15 @@ namespace Concurrence.Desktop
             return creditCards;
         }
 
-        private void GetCreditCards_Click(object sender, EventArgs e)
+        private async void GetCreditCards_Click(object sender, EventArgs e)
         {
             lblProcesing.Visible = true;
-            var cards = GetCreditCards(5);
+            var cards = GetCreditCardsList(5);
             var stopWatch = new Stopwatch();
             stopWatch.Start();
             try
             {
-
+                await ProcessCards(cards);
             }
             catch (Exception)
             {
