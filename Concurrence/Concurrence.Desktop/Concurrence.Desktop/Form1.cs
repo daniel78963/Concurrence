@@ -1,17 +1,20 @@
+using Newtonsoft.Json;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace Concurrence.Desktop
 {
     public partial class Form1 : Form
     {
         private string apiURL;
-        private HttpClient httpCLient;
+        private HttpClient httpClient;
 
         public Form1()
         {
             InitializeComponent();
             apiURL = "https://localhost:7091";
-            httpCLient = new HttpClient();
+            httpClient = new HttpClient();
         }
 
         private async void btnStart_Click(object sender, EventArgs e)
@@ -29,14 +32,14 @@ namespace Concurrence.Desktop
             var name = txtInput.Text;
             try
             {
-               //Si ocurre una excepción dentro de la llamada al servicio y no tiene el await, la excepción nunca se va a ver
+                //Si ocurre una excepción dentro de la llamada al servicio y no tiene el await, la excepción nunca se va a ver
                 var greetings = await GetGreetings(name);
                 MessageBox.Show(greetings);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            } 
+            }
 
             //MessageBox.Show("pasaron los 5 seg");
             this.lblProcesing.Visible = false;
@@ -49,12 +52,54 @@ namespace Concurrence.Desktop
 
         private async Task<string> GetGreetings(string name)
         {
-            using (var response = await httpCLient.GetAsync($"{apiURL}/greetings/{name}"))
+            using (var response = await httpClient.GetAsync($"{apiURL}/greetings/{name}"))
             {
                 response.EnsureSuccessStatusCode();
                 var saludo = await response.Content.ReadAsStringAsync();
                 return saludo;
             }
+        }
+
+        private List<string> GetCreditCards(int quantityCards)
+        {
+            var creditCards = new List<string>();
+            for (int i = 0; i < quantityCards; i++)
+            {
+                creditCards.Add(i.ToString().PadLeft(16, '0'));
+            }
+            return creditCards;
+        }
+
+        private void GetCreditCards_Click(object sender, EventArgs e)
+        {
+            lblProcesing.Visible = true;
+            var cards = GetCreditCards(5);
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
+            try
+            {
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            MessageBox.Show($"Operation finalized in {stopWatch.ElapsedMilliseconds / 1000.0} segundos");
+        }
+
+        private async Task ProcessCards(List<string> cards)
+        {
+            var tasks = new List<Task>(); 
+            foreach (var card in cards)
+            {
+                var json = JsonConvert.SerializeObject(card);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var answerTask = httpClient.PostAsync($"{apiURL}/creditcards", content);
+                tasks.Add(answerTask);
+            }
+            await Task.WhenAll(tasks);
         }
     }
 }

@@ -29,102 +29,124 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.btnStart = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.btnStartAsync = new System.Windows.Forms.Button();
-            this.lblProcesing = new System.Windows.Forms.Label();
-            this.txtInput = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            this.SuspendLayout();
+            btnStart = new Button();
+            pictureBox1 = new PictureBox();
+            pictureBox2 = new PictureBox();
+            btnStartAsync = new Button();
+            lblProcesing = new Label();
+            txtInput = new TextBox();
+            label1 = new Label();
+            panel1 = new Panel();
+            GetCreditCards = new Button();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            panel1.SuspendLayout();
+            SuspendLayout();
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(55, 74);
-            this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(117, 25);
-            this.btnStart.TabIndex = 0;
-            this.btnStart.Text = "Start";
-            this.btnStart.UseVisualStyleBackColor = true;
-            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            btnStart.Location = new Point(55, 74);
+            btnStart.Name = "btnStart";
+            btnStart.Size = new Size(117, 25);
+            btnStart.TabIndex = 0;
+            btnStart.Text = "Start";
+            btnStart.UseVisualStyleBackColor = true;
+            btnStart.Click += btnStart_Click;
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(55, 123);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(135, 135);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(55, 123);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(135, 135);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 1;
+            pictureBox1.TabStop = false;
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(247, 123);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(261, 172);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 2;
-            this.pictureBox2.TabStop = false;
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(247, 123);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(261, 172);
+            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox2.TabIndex = 2;
+            pictureBox2.TabStop = false;
             // 
             // btnStartAsync
             // 
-            this.btnStartAsync.Location = new System.Drawing.Point(247, 74);
-            this.btnStartAsync.Name = "btnStartAsync";
-            this.btnStartAsync.Size = new System.Drawing.Size(117, 25);
-            this.btnStartAsync.TabIndex = 3;
-            this.btnStartAsync.Text = "Start async";
-            this.btnStartAsync.UseVisualStyleBackColor = true;
-            this.btnStartAsync.Click += new System.EventHandler(this.btnStartAsync_Click);
+            btnStartAsync.Location = new Point(247, 74);
+            btnStartAsync.Name = "btnStartAsync";
+            btnStartAsync.Size = new Size(117, 25);
+            btnStartAsync.TabIndex = 3;
+            btnStartAsync.Text = "Start async";
+            btnStartAsync.UseVisualStyleBackColor = true;
+            btnStartAsync.Click += btnStartAsync_Click;
             // 
             // lblProcesing
             // 
-            this.lblProcesing.AutoSize = true;
-            this.lblProcesing.Location = new System.Drawing.Point(378, 79);
-            this.lblProcesing.Name = "lblProcesing";
-            this.lblProcesing.Size = new System.Drawing.Size(81, 17);
-            this.lblProcesing.TabIndex = 4;
-            this.lblProcesing.Text = "processing...";
-            this.lblProcesing.Visible = false;
+            lblProcesing.AutoSize = true;
+            lblProcesing.Location = new Point(378, 79);
+            lblProcesing.Name = "lblProcesing";
+            lblProcesing.Size = new Size(81, 17);
+            lblProcesing.TabIndex = 4;
+            lblProcesing.Text = "processing...";
+            lblProcesing.Visible = false;
             // 
             // txtInput
             // 
-            this.txtInput.Location = new System.Drawing.Point(170, 32);
-            this.txtInput.Name = "txtInput";
-            this.txtInput.Size = new System.Drawing.Size(191, 25);
-            this.txtInput.TabIndex = 5;
+            txtInput.Location = new Point(170, 32);
+            txtInput.Name = "txtInput";
+            txtInput.Size = new Size(191, 25);
+            txtInput.TabIndex = 5;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(55, 34);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 17);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Name";
+            label1.AutoSize = true;
+            label1.Location = new Point(55, 34);
+            label1.Name = "label1";
+            label1.Size = new Size(43, 17);
+            label1.TabIndex = 6;
+            label1.Text = "Name";
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(GetCreditCards);
+            panel1.Location = new Point(55, 319);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(221, 110);
+            panel1.TabIndex = 7;
+            // 
+            // GetCreditCards
+            // 
+            GetCreditCards.Location = new Point(18, 16);
+            GetCreditCards.Name = "GetCreditCards";
+            GetCreditCards.Size = new Size(117, 25);
+            GetCreditCards.TabIndex = 4;
+            GetCreditCards.Text = "Get Credit Cards";
+            GetCreditCards.UseVisualStyleBackColor = true;
+            GetCreditCards.Click += this.GetCreditCards_Click;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.txtInput);
-            this.Controls.Add(this.lblProcesing);
-            this.Controls.Add(this.btnStartAsync);
-            this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.btnStart);
-            this.Name = "Form1";
-            this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 17F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(panel1);
+            Controls.Add(label1);
+            Controls.Add(txtInput);
+            Controls.Add(lblProcesing);
+            Controls.Add(btnStartAsync);
+            Controls.Add(pictureBox2);
+            Controls.Add(pictureBox1);
+            Controls.Add(btnStart);
+            Name = "Form1";
+            Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            panel1.ResumeLayout(false);
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -136,5 +158,8 @@
         private Label lblProcesing;
         private TextBox txtInput;
         private Label label1;
+        private Panel panel1;
+        private Button button1;
+        private Button GetCreditCards;
     }
 }
