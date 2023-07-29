@@ -6,6 +6,7 @@ namespace Concurrence.WebAPI.Helpers
     {
         private static RNGCryptoServiceProvider _global = new RNGCryptoServiceProvider();
 
+        //ThreadStatic me permite tener una copia particular por hilo de una variable
         [ThreadStatic]
         private static Random _randomLocal;
 
