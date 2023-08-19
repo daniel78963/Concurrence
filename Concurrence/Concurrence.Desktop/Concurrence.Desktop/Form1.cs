@@ -1,7 +1,9 @@
 using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 
 namespace Concurrence.Desktop
 {
@@ -86,13 +88,14 @@ namespace Concurrence.Desktop
         private async void GetCreditCards_Click(object sender, EventArgs e)
         {
             lblProcesing.Visible = true;
-            var cards = await GetCreditCardsListAsync(1000);
+            var cards = await GetCreditCardsListAsync(100);
             var stopWatch = new Stopwatch();
             stopWatch.Start();
             try
             {
                 //await ProcessCards(cards);
                 await ProcessCardsRunAsync(cards);
+                //await ProcessCardsSemaphoreAsync(cards);
             }
             catch (Exception)
             {
@@ -133,6 +136,30 @@ namespace Concurrence.Desktop
                     tasks.Add(answerTask);
                 }
             });
+
+            await Task.WhenAll(tasks);
+        }
+
+        private async Task ProcessCardsSemaphoreAsync(List<string> cards)
+        {
+            var semaphore = new SemaphoreSlim(1000);
+
+            var tasks = new List<Task<HttpResponseMessage>>();
+
+            tasks = cards.Select(async card =>
+            {
+                var json = JsonConvert.SerializeObject(card);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                //Entramos al semaforo para que controle la cantidad de tareas
+                //y no deja pasar mas tareas nuevas hasta que las anteriores
+                //sean todas ejecutadas
+                await semaphore.WaitAsync();
+                try
+                {
+                    return await httpClient.PostAsync($"{apiURL}/creditcards", content);
+                }
+                finally { semaphore.Release(); }
+            }).ToList();
 
             await Task.WhenAll(tasks);
         }
