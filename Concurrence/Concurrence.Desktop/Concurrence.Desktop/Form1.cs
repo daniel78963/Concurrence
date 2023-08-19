@@ -70,6 +70,19 @@ namespace Concurrence.Desktop
             return creditCards;
         }
 
+        private async Task<List<string>> GetCreditCardsListAsync(int quantityCards)
+        {
+            return await Task.Run(() =>
+                {
+                    var creditCards = new List<string>();
+                    for (int i = 0; i < quantityCards; i++)
+                    {
+                        creditCards.Add(i.ToString().PadLeft(16, '0'));
+                    }
+                    return creditCards;
+                });
+        }
+
         private async void GetCreditCards_Click(object sender, EventArgs e)
         {
             lblProcesing.Visible = true;
@@ -94,7 +107,7 @@ namespace Concurrence.Desktop
             //Esto esta corriendo en el hilo UI
             //Por eso se demora en iniciar el loading,
             //pq el hilo principal se desbloquea cuando llega a await Task.WhenAll(tasks);
-            var tasks = new List<Task>(); 
+            var tasks = new List<Task>();
             foreach (var card in cards)
             {
                 var json = JsonConvert.SerializeObject(card);
@@ -102,6 +115,24 @@ namespace Concurrence.Desktop
                 var answerTask = httpClient.PostAsync($"{apiURL}/creditcards", content);
                 tasks.Add(answerTask);
             }
+            await Task.WhenAll(tasks);
+        }
+
+        private async Task ProcessCardsRunAsync(List<string> cards)
+        {
+            var tasks = new List<Task>();
+            //Liberamos el hilo UI
+            await Task.Run(() =>
+            {
+                foreach (var card in cards)
+                {
+                    var json = JsonConvert.SerializeObject(card);
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
+                    var answerTask = httpClient.PostAsync($"{apiURL}/creditcards", content);
+                    tasks.Add(answerTask);
+                }
+            });
+
             await Task.WhenAll(tasks);
         }
     }
