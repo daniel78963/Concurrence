@@ -73,7 +73,7 @@ namespace Concurrence.Desktop
         private async void GetCreditCards_Click(object sender, EventArgs e)
         {
             lblProcesing.Visible = true;
-            var cards = GetCreditCardsList(5);
+            var cards = GetCreditCardsList(1000);
             var stopWatch = new Stopwatch();
             stopWatch.Start();
             try
@@ -91,6 +91,9 @@ namespace Concurrence.Desktop
 
         private async Task ProcessCards(List<string> cards)
         {
+            //Esto esta corriendo en el hilo UI
+            //Por eso se demora en iniciar el loading,
+            //pq el hilo principal se desbloquea cuando llega a await Task.WhenAll(tasks);
             var tasks = new List<Task>(); 
             foreach (var card in cards)
             {
