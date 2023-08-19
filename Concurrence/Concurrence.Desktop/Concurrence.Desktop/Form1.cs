@@ -94,8 +94,8 @@ namespace Concurrence.Desktop
             try
             {
                 //await ProcessCards(cards);
-                await ProcessCardsRunAsync(cards);
-                //await ProcessCardsSemaphoreAsync(cards);
+                //await ProcessCardsRunAsync(cards);
+                await ProcessCardsSemaphoreAsync(cards);
             }
             catch (Exception)
             {
@@ -142,7 +142,7 @@ namespace Concurrence.Desktop
 
         private async Task ProcessCardsSemaphoreAsync(List<string> cards)
         {
-            var semaphore = new SemaphoreSlim(1000);
+            var semaphore = new SemaphoreSlim(10);
 
             var tasks = new List<Task<HttpResponseMessage>>();
 
