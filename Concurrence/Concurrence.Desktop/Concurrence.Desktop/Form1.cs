@@ -86,19 +86,20 @@ namespace Concurrence.Desktop
         private async void GetCreditCards_Click(object sender, EventArgs e)
         {
             lblProcesing.Visible = true;
-            var cards = GetCreditCardsList(1000);
+            var cards = await GetCreditCardsListAsync(1000);
             var stopWatch = new Stopwatch();
             stopWatch.Start();
             try
             {
-                await ProcessCards(cards);
+                //await ProcessCards(cards);
+                await ProcessCardsRunAsync(cards);
             }
             catch (Exception)
             {
 
                 throw;
             }
-
+            lblProcesing.Visible = false;
             MessageBox.Show($"Operation finalized in {stopWatch.ElapsedMilliseconds / 1000.0} segundos");
         }
 
