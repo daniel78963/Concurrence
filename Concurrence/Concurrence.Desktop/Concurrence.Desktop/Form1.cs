@@ -161,7 +161,14 @@ namespace Concurrence.Desktop
                 finally { semaphore.Release(); }
             }).ToList();
 
-            await Task.WhenAll(tasks);
+            //await Task.WhenAll(tasks);
+            //Vid 21
+            var answers = await Task.WhenAll(tasks);
+            var cardsRejected = new List<string>();
+            foreach (var answer in answers)
+            {
+
+            }
         }
     }
 }
