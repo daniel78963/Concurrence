@@ -1,3 +1,4 @@
+using Concurrence.Desktop.Model;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Linq.Expressions;
@@ -167,7 +168,17 @@ namespace Concurrence.Desktop
             var cardsRejected = new List<string>();
             foreach (var answer in answers)
             {
-
+                var content = await answer.Content.ReadAsStringAsync();
+                var answerCard = JsonConvert.DeserializeObject<AnswerCard>(content);
+                if (!answerCard.IsApproved)
+                {
+                    cardsRejected.Add(answerCard.Card);
+                }
+            }
+            Console.WriteLine("Cards rejected:");
+            foreach (var card in cardsRejected)
+            {
+                Console.WriteLine(card);
             }
         }
     }

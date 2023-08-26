@@ -17,7 +17,7 @@ namespace Concurrence.WebAPI.Controllers
             await Task.Delay(1000);
             Console.WriteLine($"Credit card {card} processed");
             //return Ok(new { card, approved });
-            return Ok(new { Card = card, Approved = approved });
+            return Ok(new { Card = card, IsApproved = approved });
         }
     }
 }
