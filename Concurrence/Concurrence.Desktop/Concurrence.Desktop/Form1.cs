@@ -1,5 +1,6 @@
 using Concurrence.Desktop.Model;
 using Newtonsoft.Json;
+using System;
 using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
@@ -89,6 +90,9 @@ namespace Concurrence.Desktop
         private async void GetCreditCards_Click(object sender, EventArgs e)
         {
             lblProcesing.Visible = true;
+            pgProcess.Visible = true;
+            var reportProgress = new Progress<int>(ReportProgressCards);
+
             var cards = await GetCreditCardsListAsync(100);
             var stopWatch = new Stopwatch();
             stopWatch.Start();
@@ -96,7 +100,9 @@ namespace Concurrence.Desktop
             {
                 //await ProcessCards(cards);
                 //await ProcessCardsRunAsync(cards);
-                await ProcessCardsSemaphoreAsync(cards);
+                //await ProcessCardsSemaphoreAsync(cards);
+                //await ProcessCardsSemaphoreProgressAsync(cards, reportProgress);
+                await ProcessCardsRunProgressAsync(cards, reportProgress);
             }
             catch (Exception)
             {
@@ -104,6 +110,7 @@ namespace Concurrence.Desktop
                 throw;
             }
             lblProcesing.Visible = false;
+            pgProcess.Visible = false;
             MessageBox.Show($"Operation finalized in {stopWatch.ElapsedMilliseconds / 1000.0} segundos");
         }
 
@@ -144,9 +151,7 @@ namespace Concurrence.Desktop
         private async Task ProcessCardsSemaphoreAsync(List<string> cards)
         {
             var semaphore = new SemaphoreSlim(10);
-
             var tasks = new List<Task<HttpResponseMessage>>();
-
             tasks = cards.Select(async card =>
             {
                 var json = JsonConvert.SerializeObject(card);
@@ -157,7 +162,9 @@ namespace Concurrence.Desktop
                 await semaphore.WaitAsync();
                 try
                 {
-                    return await httpClient.PostAsync($"{apiURL}/creditcards", content);
+                    var taskInternal = await httpClient.PostAsync($"{apiURL}/creditcards", content);
+
+                    return taskInternal;
                 }
                 finally { semaphore.Release(); }
             }).ToList();
@@ -181,5 +188,88 @@ namespace Concurrence.Desktop
                 Console.WriteLine(card);
             }
         }
+
+
+        private async Task ProcessCardsSemaphoreProgressAsync(List<string> cards, IProgress<int> progress = null)
+        {
+            var semaphore = new SemaphoreSlim(10);
+            var tasks = new List<Task<HttpResponseMessage>>();
+            int index = 0;
+            tasks = cards.Select(async card =>
+            {
+                var json = JsonConvert.SerializeObject(card);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                //Entramos al semaforo para que controle la cantidad de tareas
+                //y no deja pasar mas tareas nuevas hasta que las anteriores
+                //sean todas ejecutadas
+                await semaphore.WaitAsync();
+                try
+                {
+                    var taskInternal = await httpClient.PostAsync($"{apiURL}/creditcards", content);
+                    if (progress != null)
+                    {
+                        index++;
+                        var percentage = (double)index / cards.Count;
+                        var percentageRounded = (int)Math.Round(percentage * 100, 0);
+                        //Report se encarga de ejecutar el método ReportProgressCards
+                        progress.Report(percentageRounded);
+                    }
+                    return taskInternal;
+                }
+                finally { semaphore.Release(); }
+            }).ToList();
+
+            //await Task.WhenAll(tasks);
+            //Vid 21
+            var answers = await Task.WhenAll(tasks);
+            var cardsRejected = new List<string>();
+            foreach (var answer in answers)
+            {
+                var content = await answer.Content.ReadAsStringAsync();
+                var answerCard = JsonConvert.DeserializeObject<AnswerCard>(content);
+                if (!answerCard.IsApproved)
+                {
+                    cardsRejected.Add(answerCard.Card);
+                }
+            }
+            Console.WriteLine("Cards rejected:");
+            foreach (var card in cardsRejected)
+            {
+                Console.WriteLine(card);
+            }
+        }
+
+        private async Task ProcessCardsRunProgressAsync(List<string> cards, IProgress<int> progress = null)
+        {
+            var tasks = new List<Task>();
+            int index = 0;
+            //Liberamos el hilo UI
+            await Task.Run(() =>
+            {
+                foreach (var card in cards)
+                {
+                    var json = JsonConvert.SerializeObject(card);
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
+                    var answerTask = httpClient.PostAsync($"{apiURL}/creditcards", content);
+                    if (progress != null)
+                    {
+                        index++;
+                        var percentage = (double)index / cards.Count;
+                        var percentageRounded = (int)Math.Round(percentage * 100, 0);
+                        //Report se encarga de ejecutar el método ReportProgressCards
+                        progress.Report(percentageRounded);
+                    }
+                    tasks.Add(answerTask);
+                }
+            });
+
+            await Task.WhenAll(tasks);
+        }
+
+        private void ReportProgressCards(int percentage)
+        {
+            pgProcess.Value = percentage;
+        }
+
     }
 }

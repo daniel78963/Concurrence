@@ -37,6 +37,7 @@
             txtInput = new TextBox();
             label1 = new Label();
             panel1 = new Panel();
+            pgProcess = new ProgressBar();
             GetCreditCards = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -111,11 +112,20 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(pgProcess);
             panel1.Controls.Add(GetCreditCards);
             panel1.Location = new Point(55, 319);
             panel1.Name = "panel1";
-            panel1.Size = new Size(221, 110);
+            panel1.Size = new Size(453, 110);
             panel1.TabIndex = 7;
+            // 
+            // pgProcess
+            // 
+            pgProcess.Location = new Point(13, 54);
+            pgProcess.Name = "pgProcess";
+            pgProcess.Size = new Size(425, 25);
+            pgProcess.TabIndex = 5;
+            pgProcess.Visible = false;
             // 
             // GetCreditCards
             // 
@@ -125,7 +135,7 @@
             GetCreditCards.TabIndex = 4;
             GetCreditCards.Text = "Get Credit Cards";
             GetCreditCards.UseVisualStyleBackColor = true;
-            GetCreditCards.Click += this.GetCreditCards_Click;
+            GetCreditCards.Click += GetCreditCards_Click;
             // 
             // Form1
             // 
@@ -161,5 +171,6 @@
         private Panel panel1;
         private Button button1;
         private Button GetCreditCards;
+        private ProgressBar pgProcess;
     }
 }
