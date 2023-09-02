@@ -119,14 +119,14 @@ namespace Concurrence.Desktop
             pgProcess.Visible = true;
             var reportProgress = new Progress<int>(ReportProgressCards);
 
-            //var cards = await GetCreditCardsListAsync(100);
-           
+            var cards = await GetCreditCardsListAsync(100);
+
             var stopWatch = new Stopwatch();
             stopWatch.Start();
             try
             {
                 //vid 25
-                var cards = await GetCreditCardsCancellationAsync(100, cancellationTokenSource.Token);
+                //var cards = await GetCreditCardsCancellationAsync(100, cancellationTokenSource.Token);
 
                 //await ProcessCards(cards);
                 //await ProcessCardsRunAsync(cards);
