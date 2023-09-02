@@ -73,7 +73,7 @@ namespace Concurrence.Desktop
 
         private async Task<List<string>> GetCreditCardsListAsync(int quantityCards)
         {
-            return await Task.Run(() =>
+            return await Task.Run(async () =>
                 {
                     var creditCards = new List<string>();
                     for (int i = 0; i < quantityCards; i++)
@@ -84,6 +84,33 @@ namespace Concurrence.Desktop
                 });
         }
 
+        private async Task<List<string>> GetCreditCardsCancellationAsync(int quantityCards
+            , CancellationToken cancellationToken = default)
+        {
+            return await Task.Run(async () =>
+            {
+                var creditCards = new List<string>();
+                for (int i = 0; i < quantityCards; i++)
+                {
+                    //creditCards.Add(i.ToString().PadLeft(16, '0'));
+                    //Vid 25 cancelando bucles
+                    await Task.Delay(1000);
+                    creditCards.Add(i.ToString().PadLeft(16, '0'));
+
+                    Console.WriteLine($"Han sido generadas {creditCards.Count} tarjetas");
+
+                    if (cancellationToken.IsCancellationRequested)
+                    {
+                        //Me dice si el generador de tokens ha solicitado la cancelación del token
+                        //break;
+                        ////or
+                        throw new TaskCanceledException();
+                    }
+                }
+                return creditCards;
+            });
+        }
+
         private async void GetCreditCards_Click(object sender, EventArgs e)
         {
             cancellationTokenSource = new CancellationTokenSource();
@@ -92,11 +119,15 @@ namespace Concurrence.Desktop
             pgProcess.Visible = true;
             var reportProgress = new Progress<int>(ReportProgressCards);
 
-            var cards = await GetCreditCardsListAsync(100);
+            //var cards = await GetCreditCardsListAsync(100);
+           
             var stopWatch = new Stopwatch();
             stopWatch.Start();
             try
             {
+                //vid 25
+                var cards = await GetCreditCardsCancellationAsync(100, cancellationTokenSource.Token);
+
                 //await ProcessCards(cards);
                 //await ProcessCardsRunAsync(cards);
                 //await ProcessCardsSemaphoreAsync(cards);
@@ -110,7 +141,7 @@ namespace Concurrence.Desktop
             }
             catch (TaskCanceledException ex)
             {
-                MessageBox.Show($"The operation was canceled. {ex.Message }");
+                MessageBox.Show($"The operation was canceled. {ex.Message}");
             }
             lblProcesing.Visible = false;
             pgProcess.Visible = false;
@@ -311,7 +342,7 @@ namespace Concurrence.Desktop
 
             if (progress != null)
             {
-                while (await Task.WhenAny(answersTasks, Task.Delay(3000)) != answersTasks)
+                while (await Task.WhenAny(answersTasks, Task.Delay(1000)) != answersTasks)
                 {
                     //el != compara si ya se terminaron las tareas (answerTask) y finaliza el while
                     //el WhenAny compara cual tarea está mas demorada y devuelve la de menos tiempo y sigue ejecutandose el While
