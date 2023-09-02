@@ -39,6 +39,7 @@
             panel1 = new Panel();
             pgProcess = new ProgressBar();
             GetCreditCards = new Button();
+            btnCancel = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -112,6 +113,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(btnCancel);
             panel1.Controls.Add(pgProcess);
             panel1.Controls.Add(GetCreditCards);
             panel1.Location = new Point(55, 319);
@@ -136,6 +138,16 @@
             GetCreditCards.Text = "Get Credit Cards";
             GetCreditCards.UseVisualStyleBackColor = true;
             GetCreditCards.Click += GetCreditCards_Click;
+            // 
+            // btnCancel
+            // 
+            btnCancel.Location = new Point(154, 16);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(117, 25);
+            btnCancel.TabIndex = 6;
+            btnCancel.Text = "Cancel";
+            btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
             // Form1
             // 
@@ -172,5 +184,6 @@
         private Button button1;
         private Button GetCreditCards;
         private ProgressBar pgProcess;
+        private Button btnCancel;
     }
 }

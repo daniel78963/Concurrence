@@ -1,12 +1,7 @@
 using Concurrence.Desktop.Model;
 using Newtonsoft.Json;
-using System;
 using System.Diagnostics;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
 using System.Text;
-using System.Threading;
 
 namespace Concurrence.Desktop
 {
@@ -14,6 +9,7 @@ namespace Concurrence.Desktop
     {
         private string apiURL;
         private HttpClient httpClient;
+        private CancellationTokenSource cancellationTokenSource;
 
         public Form1()
         {
@@ -90,6 +86,8 @@ namespace Concurrence.Desktop
 
         private async void GetCreditCards_Click(object sender, EventArgs e)
         {
+            cancellationTokenSource = new CancellationTokenSource();
+
             lblProcesing.Visible = true;
             pgProcess.Visible = true;
             var reportProgress = new Progress<int>(ReportProgressCards);
@@ -103,15 +101,20 @@ namespace Concurrence.Desktop
                 //await ProcessCardsRunAsync(cards);
                 //await ProcessCardsSemaphoreAsync(cards);
                 //await ProcessCardsSemaphoreProgressAsync(cards, reportProgress);
-                await ProcessCardsRunProgressAsync(cards, reportProgress);
+                //await ProcessCardsRunProgressAsync(cards, reportProgress);
+                await ProcessCardsWhenAnyAsync(cards, reportProgress, cancellationTokenSource.Token);
             }
-            catch (Exception)
+            catch (HttpRequestException ex)
             {
-
-                throw;
+                MessageBox.Show(ex.Message);
+            }
+            catch (TaskCanceledException ex)
+            {
+                MessageBox.Show($"The operation was canceled. {ex.Message }");
             }
             lblProcesing.Visible = false;
             pgProcess.Visible = false;
+            pgProcess.Value = 0;
             MessageBox.Show($"Operation finalized in {stopWatch.ElapsedMilliseconds / 1000.0} segundos");
         }
 
@@ -267,8 +270,11 @@ namespace Concurrence.Desktop
             await Task.WhenAll(tasks);
         }
 
-        private async Task ProcessCardsWhenAnyAsync(List<string> cards, IProgress<int> progress = null)
+        private async Task ProcessCardsWhenAnyAsync(List<string> cards
+            , IProgress<int> progress = null,
+            CancellationToken cancellationToken = default)
         {
+            //El default sirve para que sea una variable opcional
             var semaphore = new SemaphoreSlim(10);
             var tasks = new List<Task<HttpResponseMessage>>();
             int index = 0;
@@ -282,7 +288,7 @@ namespace Concurrence.Desktop
                 await semaphore.WaitAsync();
                 try
                 {
-                    var taskInternal = await httpClient.PostAsync($"{apiURL}/creditcards", content);
+                    var taskInternal = await httpClient.PostAsync($"{apiURL}/creditcards", content, cancellationToken);
                     //if (progress != null)
                     //{
                     //    index++;
@@ -305,7 +311,7 @@ namespace Concurrence.Desktop
 
             if (progress != null)
             {
-                while (await Task.WhenAny(answersTasks, Task.Delay(1000)) != answersTasks)
+                while (await Task.WhenAny(answersTasks, Task.Delay(3000)) != answersTasks)
                 {
                     //el != compara si ya se terminaron las tareas (answerTask) y finaliza el while
                     //el WhenAny compara cual tarea está mas demorada y devuelve la de menos tiempo y sigue ejecutandose el While
@@ -343,5 +349,10 @@ namespace Concurrence.Desktop
             pgProcess.Value = percentage;
         }
 
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            //el ? sirve para validar que no sea nulo
+            cancellationTokenSource?.Cancel();
+        }
     }
 }
