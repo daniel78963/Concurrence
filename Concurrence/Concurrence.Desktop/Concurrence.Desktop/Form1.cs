@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 
@@ -264,6 +265,77 @@ namespace Concurrence.Desktop
             });
 
             await Task.WhenAll(tasks);
+        }
+
+        private async Task ProcessCardsWhenAnyAsync(List<string> cards, IProgress<int> progress = null)
+        {
+            var semaphore = new SemaphoreSlim(10);
+            var tasks = new List<Task<HttpResponseMessage>>();
+            int index = 0;
+            tasks = cards.Select(async card =>
+            {
+                var json = JsonConvert.SerializeObject(card);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                //Entramos al semaforo para que controle la cantidad de tareas
+                //y no deja pasar mas tareas nuevas hasta que las anteriores
+                //sean todas ejecutadas
+                await semaphore.WaitAsync();
+                try
+                {
+                    var taskInternal = await httpClient.PostAsync($"{apiURL}/creditcards", content);
+                    //if (progress != null)
+                    //{
+                    //    index++;
+                    //    var percentage = (double)index / cards.Count;
+                    //    var percentageRounded = (int)Math.Round(percentage * 100, 0);
+                    //    //Report se encarga de ejecutar el método ReportProgressCards
+                    //    progress.Report(percentageRounded);
+                    //}
+                    return taskInternal;
+                }
+                finally { semaphore.Release(); }
+            }).ToList();
+
+            //await Task.WhenAll(tasks);
+            //Vid 21
+            //Vid 23
+            //Ya no vamos a esperar a que finalicen todas las tareas
+            //var answers = await Task.WhenAll(tasks);
+            var answersTasks = Task.WhenAll(tasks);
+
+            if (progress != null)
+            {
+                while (await Task.WhenAny(answersTasks, Task.Delay(1000)) != answersTasks)
+                {
+                    //el != compara si ya se terminaron las tareas (answerTask) y finaliza el while
+                    //el WhenAny compara cual tarea está mas demorada y devuelve la de menos tiempo y sigue ejecutandose el While
+                    var taskCompleted = tasks.Where(task => task.IsCompleted).Count();
+                    var percentage = (double)taskCompleted / cards.Count;
+                    var percentageRounded = (int)Math.Round(percentage * 100, 0);
+                    //Report se encarga de ejecutar el método ReportProgressCards
+                    progress.Report(percentageRounded);
+                }
+            }
+
+            //Si ya las tareas fueron completadas, no significa que con el await de abajo
+            //se va a volver a realizar la tarea. Esperar una tarea dos veces no significa
+            //que se va a ejecutar dos veces
+            var answers = await answersTasks;
+            var cardsRejected = new List<string>();
+            foreach (var answer in answers)
+            {
+                var content = await answer.Content.ReadAsStringAsync();
+                var answerCard = JsonConvert.DeserializeObject<AnswerCard>(content);
+                if (!answerCard.IsApproved)
+                {
+                    cardsRejected.Add(answerCard.Card);
+                }
+            }
+            Console.WriteLine("Cards rejected:");
+            foreach (var card in cardsRejected)
+            {
+                Console.WriteLine(card);
+            }
         }
 
         private void ReportProgressCards(int percentage)
