@@ -415,10 +415,12 @@ namespace Concurrence.Desktop
             cancellationTokenSource?.Cancel();
         }
 
-        private void btnStart2_Click(object sender, EventArgs e)
+        private async void btnStart2_Click(object sender, EventArgs e)
         {
             loadingGif.Visible = true;
             Console.WriteLine($"Thread before await: {Thread.CurrentThread.ManagedThreadId}");
+            await Task.Delay(500);
+            Console.WriteLine($"Thread after await: {Thread.CurrentThread.ManagedThreadId}");
             loadingGif.Visible = false;
         }
     }
