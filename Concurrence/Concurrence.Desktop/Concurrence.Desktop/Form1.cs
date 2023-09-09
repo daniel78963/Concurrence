@@ -114,7 +114,7 @@ namespace Concurrence.Desktop
         private async void GetCreditCards_Click(object sender, EventArgs e)
         {
             cancellationTokenSource = new CancellationTokenSource();
-
+            cancellationTokenSource.CancelAfter(TimeSpan.FromSeconds(3));
             lblProcesing.Visible = true;
             pgProcess.Visible = true;
             var reportProgress = new Progress<int>(ReportProgressCards);
