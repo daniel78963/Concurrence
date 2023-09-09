@@ -84,8 +84,29 @@ namespace Concurrence.Desktop
                 });
         }
 
+        private Task<List<string>> GetCreditCardsMock(int quantityCards
+         , CancellationToken cancellationToken = default)
+        {
+            var cards = new List<string>();
+            cards.Add("0000000001");
+            return Task.FromResult(cards);
+        }
+
+        private Task GetTaskErrorMock(int quantityCards
+        , CancellationToken cancellationToken = default)
+        {
+            return Task.FromException(new ApplicationException());
+        }
+
+        private Task GetTaskCancelledMock(int quantityCards
+       , CancellationToken cancellationToken = default)
+        {
+            cancellationTokenSource = new CancellationTokenSource();
+            return Task.FromCanceled(cancellationTokenSource.Token);
+        }
+
         private async Task<List<string>> GetCreditCardsCancellationAsync(int quantityCards
-            , CancellationToken cancellationToken = default)
+        , CancellationToken cancellationToken = default)
         {
             return await Task.Run(async () =>
             {
@@ -301,9 +322,17 @@ namespace Concurrence.Desktop
             await Task.WhenAll(tasks);
         }
 
+        private Task ProcessCardsMock(List<string> cards
+          , IProgress<int> progress = null,
+          CancellationToken cancellationToken = default)
+        {
+
+            return Task.CompletedTask;
+        }
+
         private async Task ProcessCardsWhenAnyAsync(List<string> cards
-            , IProgress<int> progress = null,
-            CancellationToken cancellationToken = default)
+        , IProgress<int> progress = null,
+        CancellationToken cancellationToken = default)
         {
             //El default sirve para que sea una variable opcional
             var semaphore = new SemaphoreSlim(10);
