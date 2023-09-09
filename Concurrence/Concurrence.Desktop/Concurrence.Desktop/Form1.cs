@@ -414,5 +414,12 @@ namespace Concurrence.Desktop
             //el ? sirve para validar que no sea nulo
             cancellationTokenSource?.Cancel();
         }
+
+        private void btnStart2_Click(object sender, EventArgs e)
+        {
+            loadingGif.Visible = true;
+            Console.WriteLine($"Thread before await: {Thread.CurrentThread.ManagedThreadId}");
+            loadingGif.Visible = false;
+        }
     }
 }
