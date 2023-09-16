@@ -61,6 +61,16 @@ namespace Concurrence.Desktop
             }
         }
 
+        private async Task<string> GetGreetingsDelay(string name)
+        {
+            using (var response = await httpClient.GetAsync($"{apiURL}/greetings/delay/{name}"))
+            {
+                response.EnsureSuccessStatusCode();
+                var saludo = await response.Content.ReadAsStringAsync();
+                return saludo;
+            }
+        }
+
         private List<string> GetCreditCardsList(int quantityCards)
         {
             var creditCards = new List<string>();
@@ -417,10 +427,14 @@ namespace Concurrence.Desktop
 
         private async void btnStart2_Click(object sender, EventArgs e)
         {
+            CheckForIllegalCrossThreadCalls = true;
             loadingGif.Visible = true;
             Console.WriteLine($"Thread before await: {Thread.CurrentThread.ManagedThreadId}");
-            await Task.Delay(500);
+            //await Task.Delay(500);
+            await Task.Delay(500).ConfigureAwait(continueOnCapturedContext: false);
             Console.WriteLine($"Thread after await: {Thread.CurrentThread.ManagedThreadId}");
+
+            await GetGreetingsDelay("Daniel");
             loadingGif.Visible = false;
         }
     }

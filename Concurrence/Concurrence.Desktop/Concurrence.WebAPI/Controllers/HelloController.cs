@@ -21,5 +21,16 @@ namespace Concurrence.WebAPI.Controllers
         {
             return $"Hello {name}";
         }
+
+        [HttpGet("delay/{name}")]
+        public async Task< ActionResult<string>> GetGreetingsDelay(string name)
+        {
+            Console.WriteLine($"Thread before await: {Thread.CurrentThread.ManagedThreadId}");
+            await Task.Delay(500);
+            Console.WriteLine($"Thread after await: {Thread.CurrentThread.ManagedThreadId}");
+
+            return $"Hello {name}";
+        }
+
     }
 }
