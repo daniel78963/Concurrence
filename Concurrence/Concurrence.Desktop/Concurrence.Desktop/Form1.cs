@@ -255,7 +255,6 @@ namespace Concurrence.Desktop
             }
         }
 
-
         private async Task ProcessCardsSemaphoreProgressAsync(List<string> cards, IProgress<int> progress = null)
         {
             var semaphore = new SemaphoreSlim(10);

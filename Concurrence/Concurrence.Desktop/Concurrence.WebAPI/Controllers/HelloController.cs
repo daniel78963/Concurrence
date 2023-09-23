@@ -12,7 +12,6 @@ namespace Concurrence.WebAPI.Controllers
             //https://localhost:7091/greetings/name?name=daniel
             //si se colocan las llaves al HttpGet
             //https://localhost:7091/greetings/daniel
-
             return $"Hello {name}";
         }
 
@@ -23,7 +22,7 @@ namespace Concurrence.WebAPI.Controllers
         }
 
         [HttpGet("delay/{name}")]
-        public async Task< ActionResult<string>> GetGreetingsDelay(string name)
+        public async Task<ActionResult<string>> GetGreetingsDelay(string name)
         {
             Console.WriteLine($"Thread before await: {Thread.CurrentThread.ManagedThreadId}");
             await Task.Delay(500);
@@ -31,6 +30,5 @@ namespace Concurrence.WebAPI.Controllers
 
             return $"Hello {name}";
         }
-
     }
 }
