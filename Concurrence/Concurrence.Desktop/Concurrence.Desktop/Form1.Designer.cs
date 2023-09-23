@@ -44,11 +44,14 @@
             progressBar1 = new ProgressBar();
             btnStart2 = new Button();
             loadingGif = new PictureBox();
+            gbReintento = new GroupBox();
+            btnReintent = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)loadingGif).BeginInit();
+            gbReintento.SuspendLayout();
             SuspendLayout();
             // 
             // btnStart
@@ -193,11 +196,31 @@
             loadingGif.TabStop = false;
             loadingGif.Visible = false;
             // 
+            // gbReintento
+            // 
+            gbReintento.Controls.Add(btnReintent);
+            gbReintento.Location = new Point(434, 12);
+            gbReintento.Name = "gbReintento";
+            gbReintento.Size = new Size(354, 143);
+            gbReintento.TabIndex = 10;
+            gbReintento.TabStop = false;
+            gbReintento.Text = "Reintento";
+            // 
+            // btnReintent
+            // 
+            btnReintent.Location = new Point(13, 24);
+            btnReintent.Name = "btnReintent";
+            btnReintent.Size = new Size(117, 25);
+            btnReintent.TabIndex = 6;
+            btnReintent.Text = "Start";
+            btnReintent.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(gbReintento);
             Controls.Add(loadingGif);
             Controls.Add(panel2);
             Controls.Add(panel1);
@@ -215,6 +238,7 @@
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)loadingGif).EndInit();
+            gbReintento.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -237,5 +261,7 @@
         private ProgressBar progressBar1;
         private Button btnStart2;
         private PictureBox loadingGif;
+        private GroupBox gbReintento;
+        private Button btnReintent;
     }
 }
