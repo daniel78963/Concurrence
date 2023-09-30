@@ -458,19 +458,37 @@ namespace Concurrence.Desktop
             //    }
             //}
             string name = "Daniel";
-            await Retry(async () =>
+            //await Retry(async () =>
+            //{
+            //    //using (var answer = await httpClient.GetAsync($"{apiURL}/greetings/{name}"))
+            //    using (var answer = await httpClient.GetAsync($"{apiURL}/greetings555/{name}"))
+            //    {
+            //        answer.EnsureSuccessStatusCode();//Sirve para lanzar una exception de donde se llama, cuando no haya una respuesta success
+            //        var content = await answer.Content.ReadAsStringAsync();
+            //        if (content != null)
+            //        {
+            //            Console.WriteLine(content); 
+            //        }
+            //    }
+            //});
+
+            //await Retry(ProcessGreetings);
+            try
             {
-                //using (var answer = await httpClient.GetAsync($"{apiURL}/greetings/{name}"))
-                using (var answer = await httpClient.GetAsync($"{apiURL}/greetings555/{name}"))
-                {
-                    answer.EnsureSuccessStatusCode();//Sirve para lanzar una exception de donde se llama, cuando no haya una respuesta success
-                    var content = await answer.Content.ReadAsStringAsync();
-                    if (content != null)
-                    {
-                        Console.WriteLine(content); 
-                    }
-                }
-            });
+                var content = await Retry(async () =>
+                           {
+                               string name = "Dani";
+                               using (var answer = await httpClient.GetAsync($"{apiURL}/greetings555/{name}"))
+                               {
+                                   answer.EnsureSuccessStatusCode();//Sirve para lanzar una exception de donde se llama, cuando no haya una respuesta success
+                                   return await answer.Content.ReadAsStringAsync();
+                               }
+                           });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("exception controlled");
+            }
 
             loadingGif.Visible = false;
         }
@@ -488,6 +506,39 @@ namespace Concurrence.Desktop
                 {
                     Console.WriteLine(ex.Message);
                     await Task.Delay(waitTime);
+                }
+            }
+        }
+
+        private async Task<T> Retry<T>(Func<Task<T>> f, int retries = 3, int waitTime = 500)
+        {
+            for (int i = 0; i < retries - 1; i++)
+            {
+                try
+                {
+                    return await f();
+                    break;//para salir del for, si la operation is successful
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    await Task.Delay(waitTime);
+                }
+            }
+            //Esta exception va por fuera del try y va a subir al cliente del método
+            return await f();
+        }
+
+        private async Task ProcessGreetings()
+        {
+            string name = "Dani";
+            using (var answer = await httpClient.GetAsync($"{apiURL}/greetings555/{name}"))
+            {
+                answer.EnsureSuccessStatusCode();//Sirve para lanzar una exception de donde se llama, cuando no haya una respuesta success
+                var content = await answer.Content.ReadAsStringAsync();
+                if (content != null)
+                {
+                    Console.WriteLine(content);
                 }
             }
         }
