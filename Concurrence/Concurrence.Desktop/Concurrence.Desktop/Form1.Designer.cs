@@ -214,7 +214,7 @@
             btnRetry.TabIndex = 6;
             btnRetry.Text = "Start";
             btnRetry.UseVisualStyleBackColor = true;
-            btnRetry.Click += btnReintent_Click;
+            btnRetry.Click += btnRetry_Click;
             // 
             // Form1
             // 
