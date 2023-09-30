@@ -214,6 +214,7 @@
             btnReintent.TabIndex = 6;
             btnReintent.Text = "Start";
             btnReintent.UseVisualStyleBackColor = true;
+            btnReintent.Click += btnReintent_Click;
             // 
             // Form1
             // 

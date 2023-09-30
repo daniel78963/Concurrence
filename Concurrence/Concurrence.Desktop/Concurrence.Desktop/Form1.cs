@@ -436,5 +436,12 @@ namespace Concurrence.Desktop
             await GetGreetingsDelay("Daniel");
             loadingGif.Visible = false;
         }
+
+        private void btnReintent_Click(object sender, EventArgs e)
+        {
+            loadingGif.Visible = true;
+
+            loadingGif.Visible = false;
+        }
     }
 }
