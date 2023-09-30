@@ -2,6 +2,7 @@ using Concurrence.Desktop.Model;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Text;
+using System.Xml.Linq;
 
 namespace Concurrence.Desktop
 {
@@ -437,11 +438,57 @@ namespace Concurrence.Desktop
             loadingGif.Visible = false;
         }
 
-        private void btnReintent_Click(object sender, EventArgs e)
+        private async void btnRetry_Click(object sender, EventArgs e)
         {
             loadingGif.Visible = true;
+            var retries = 3;
+            var waitTime = 500;
+
+            //for (int i = 0; i < retries; i++)
+            //{
+            //    try
+            //    {
+
+            //        break;//para salir del for, si la operation is successful
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        //Log exception
+            //        Task.Delay(waitTime);
+            //    }
+            //}
+            string name = "Daniel";
+            await Retry(async () =>
+            {
+                using (var answer = await httpClient.GetAsync($"{apiURL}/greetings/{name}"))
+                {
+                    answer.EnsureSuccessStatusCode();//Sirve para lanzar una exception de donde se llama, cuando no haya una respuesta success
+                    var content = await answer.Content.ReadAsStringAsync();
+                    if (content != null)
+                    {
+                        Console.WriteLine(content); 
+                    }
+                }
+            });
 
             loadingGif.Visible = false;
+        }
+
+        private async Task Retry(Func<Task> f, int retries = 3, int waitTime = 500)
+        {
+            for (int i = 0; i < retries; i++)
+            {
+                try
+                {
+                    await f();
+                    break;//para salir del for, si la operation is successful
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    await Task.Delay(waitTime);
+                }
+            }
         }
     }
 }

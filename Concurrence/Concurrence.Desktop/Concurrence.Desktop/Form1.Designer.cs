@@ -45,7 +45,7 @@
             btnStart2 = new Button();
             loadingGif = new PictureBox();
             gbReintento = new GroupBox();
-            btnReintent = new Button();
+            btnRetry = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -198,7 +198,7 @@
             // 
             // gbReintento
             // 
-            gbReintento.Controls.Add(btnReintent);
+            gbReintento.Controls.Add(btnRetry);
             gbReintento.Location = new Point(434, 12);
             gbReintento.Name = "gbReintento";
             gbReintento.Size = new Size(354, 143);
@@ -206,15 +206,15 @@
             gbReintento.TabStop = false;
             gbReintento.Text = "Reintento";
             // 
-            // btnReintent
+            // btnRetry
             // 
-            btnReintent.Location = new Point(13, 24);
-            btnReintent.Name = "btnReintent";
-            btnReintent.Size = new Size(117, 25);
-            btnReintent.TabIndex = 6;
-            btnReintent.Text = "Start";
-            btnReintent.UseVisualStyleBackColor = true;
-            btnReintent.Click += btnReintent_Click;
+            btnRetry.Location = new Point(13, 24);
+            btnRetry.Name = "btnRetry";
+            btnRetry.Size = new Size(117, 25);
+            btnRetry.TabIndex = 6;
+            btnRetry.Text = "Start";
+            btnRetry.UseVisualStyleBackColor = true;
+            btnRetry.Click += btnReintent_Click;
             // 
             // Form1
             // 
@@ -263,6 +263,6 @@
         private Button btnStart2;
         private PictureBox loadingGif;
         private GroupBox gbReintento;
-        private Button btnReintent;
+        private Button btnRetry;
     }
 }
