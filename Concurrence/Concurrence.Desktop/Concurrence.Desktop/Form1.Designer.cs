@@ -46,12 +46,15 @@
             loadingGif = new PictureBox();
             gbReintento = new GroupBox();
             btnRetry = new Button();
+            groupBox1 = new GroupBox();
+            btnOneTask = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)loadingGif).BeginInit();
             gbReintento.SuspendLayout();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // btnStart
@@ -188,9 +191,9 @@
             // loadingGif
             // 
             loadingGif.Image = (Image)resources.GetObject("loadingGif.Image");
-            loadingGif.Location = new Point(434, 161);
+            loadingGif.Location = new Point(794, 22);
             loadingGif.Name = "loadingGif";
-            loadingGif.Size = new Size(135, 135);
+            loadingGif.Size = new Size(50, 46);
             loadingGif.SizeMode = PictureBoxSizeMode.StretchImage;
             loadingGif.TabIndex = 9;
             loadingGif.TabStop = false;
@@ -201,7 +204,7 @@
             gbReintento.Controls.Add(btnRetry);
             gbReintento.Location = new Point(434, 12);
             gbReintento.Name = "gbReintento";
-            gbReintento.Size = new Size(354, 143);
+            gbReintento.Size = new Size(354, 56);
             gbReintento.TabIndex = 10;
             gbReintento.TabStop = false;
             gbReintento.Text = "Reintento";
@@ -216,11 +219,32 @@
             btnRetry.UseVisualStyleBackColor = true;
             btnRetry.Click += btnRetry_Click;
             // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(btnOneTask);
+            groupBox1.Location = new Point(434, 75);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(354, 56);
+            groupBox1.TabIndex = 11;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Only one task";
+            // 
+            // btnOneTask
+            // 
+            btnOneTask.Location = new Point(13, 24);
+            btnOneTask.Name = "btnOneTask";
+            btnOneTask.Size = new Size(117, 25);
+            btnOneTask.TabIndex = 6;
+            btnOneTask.Text = "Start";
+            btnOneTask.UseVisualStyleBackColor = true;
+            btnOneTask.Click += btnOneTask_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(865, 522);
+            Controls.Add(groupBox1);
             Controls.Add(gbReintento);
             Controls.Add(loadingGif);
             Controls.Add(panel2);
@@ -240,6 +264,7 @@
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)loadingGif).EndInit();
             gbReintento.ResumeLayout(false);
+            groupBox1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -264,5 +289,7 @@
         private PictureBox loadingGif;
         private GroupBox gbReintento;
         private Button btnRetry;
+        private GroupBox groupBox1;
+        private Button btnOneTask;
     }
 }

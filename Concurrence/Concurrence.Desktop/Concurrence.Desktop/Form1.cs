@@ -72,12 +72,19 @@ namespace Concurrence.Desktop
             }
         }
 
-        private async Task<string> GetGreetingsDelay(string name, CancellationToken cancellationToken)
+        /// <summary>
+        /// Enviar varias peticiones y con la primera que se procese, cancelar las demás
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        private async Task<string> GetGreetingsDelayCancel(string name, CancellationToken cancellationToken)
         {
             using (var response = await httpClient.GetAsync($"{apiURL}/greetings/delayCancell/{name}", cancellationToken))
             {
-                response.EnsureSuccessStatusCode();
+                //response.EnsureSuccessStatusCode();
                 var saludo = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(saludo);
                 return saludo;
             }
         }
@@ -552,5 +559,26 @@ namespace Concurrence.Desktop
                 }
             }
         }
+
+        /// <summary>
+        /// Only one taks, the first in end to complete
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void btnOneTask_Click(object sender, EventArgs e)
+        {
+            loadingGif.Visible = true;
+            cancellationTokenSource = new CancellationTokenSource();
+            var token = cancellationTokenSource.Token;
+            var names = new string[] { "Dani", "Rocko", "Camila", "Juan" };
+            var taskHTTP = names.Select(x => GetGreetingsDelayCancel(x, token));
+            var task = await Task.WhenAny(taskHTTP); //cualquiera de las tareas que termine
+            var content = await task;
+            Console.WriteLine(content.ToUpper());
+            cancellationTokenSource.Cancel();
+            loadingGif.Visible = false;
+        }
+
+        //private async Task(T) ExecuteTask<T>
     }
 }
