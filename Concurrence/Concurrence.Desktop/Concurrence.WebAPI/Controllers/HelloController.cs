@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Concurrence.WebAPI.Helpers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Concurrence.WebAPI.Controllers
 {
@@ -29,6 +30,14 @@ namespace Concurrence.WebAPI.Controllers
             Console.WriteLine($"Thread after await: {Thread.CurrentThread.ManagedThreadId}");
 
             return $"Hello {name}";
+        }
+
+        [HttpGet("delayCancell/{name}")]
+        public async Task<ActionResult<string>> GetGreetingsDelayCancell(string name)
+        {
+            var wait = RandomGen.NextDouble() * 10 + 1; //me trae un numero entre 1 y 10
+            await Task.Delay((int)wait * 1000);//* 1000 para que sean segundos
+            return $"Hello, {name}!";
         }
     }
 }

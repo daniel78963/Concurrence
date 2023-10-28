@@ -72,6 +72,16 @@ namespace Concurrence.Desktop
             }
         }
 
+        private async Task<string> GetGreetingsDelay(string name, CancellationToken cancellationToken)
+        {
+            using (var response = await httpClient.GetAsync($"{apiURL}/greetings/delayCancell/{name}", cancellationToken))
+            {
+                response.EnsureSuccessStatusCode();
+                var saludo = await response.Content.ReadAsStringAsync();
+                return saludo;
+            }
+        }
+
         private List<string> GetCreditCardsList(int quantityCards)
         {
             var creditCards = new List<string>();
