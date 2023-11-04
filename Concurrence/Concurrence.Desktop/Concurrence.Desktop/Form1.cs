@@ -88,6 +88,17 @@ namespace Concurrence.Desktop
             }
         }
 
+        private async Task<string> GetGoodbyeDelayCancel(string name, CancellationToken cancellationToken)
+        {
+            using (var response = await httpClient.GetAsync($"{apiURL}/greetings/delaybye/{name}", cancellationToken))
+            {
+                //response.EnsureSuccessStatusCode();
+                var saludo = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(saludo);
+                return saludo;
+            }
+        }
+
         private List<string> GetCreditCardsList(int quantityCards)
         {
             var creditCards = new List<string>();
@@ -570,23 +581,44 @@ namespace Concurrence.Desktop
             cancellationTokenSource = new CancellationTokenSource();
             var token = cancellationTokenSource.Token;
             var names = new string[] { "Dani", "Rocko", "Camila", "Juan" };
+
+            ///Comentamos esto y lo vamos a meter en un método general
             //var taskHTTP = names.Select(x => GetGreetingsDelayCancel(x, token));
             //var task = await Task.WhenAny(taskHTTP); //cualquiera de las tareas que termine
             //var content = await task;
             //Console.WriteLine(content.ToUpper());
             //cancellationTokenSource.Cancel();
+            ///
 
-            var taskHTTP = names.Select(x =>
-            {
-                Func<CancellationToken, Task<string>> function = (cancelT) => GetGreetingsDelayCancel(x, cancelT);
-                return function;
-            });
-            var content =
+            //var taskHTTP = names.Select(x =>
+            //{
+            //    Func<CancellationToken, Task<string>> function = (cancelT) => GetGreetingsDelayCancel(x, cancelT);
+            //    return function;
+            //});
+            //var content = await ExecuteOneTask(taskHTTP);
+            //Console.WriteLine(content.ToUpper());
+
+            ///Ajustamos el llamado anterior y creamos un nuevo método para tener mas llamadas landa 
+            ///para llamar distintas o varias funciones. Solo se va a ejecutar una sola tarea, una sola función
+            var content = await ExecuteOneTask(
+                  (ct) => GetGreetingsDelayCancel("Dani", ct),
+                  (ct) => GetGoodbyeDelayCancel("Dani", ct)
+                    );
+            Console.WriteLine(content.ToUpper());
 
             loadingGif.Visible = false;
         }
 
         private async Task<T> ExecuteOneTask<T>(IEnumerable<Func<CancellationToken, Task<T>>> functions)
+        {
+            var cts = new CancellationTokenSource();
+            var tasks = functions.Select(funcion => funcion(cts.Token));
+            var task = await Task.WhenAny(tasks);
+            cts.Cancel();
+            return await task;
+        }
+
+        private async Task<T> ExecuteOneTask<T>(params Func<CancellationToken, Task<T>>[] functions)
         {
             var cts = new CancellationTokenSource();
             var tasks = functions.Select(funcion => funcion(cts.Token));

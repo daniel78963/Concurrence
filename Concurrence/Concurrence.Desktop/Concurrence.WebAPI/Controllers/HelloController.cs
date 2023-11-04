@@ -39,5 +39,14 @@ namespace Concurrence.WebAPI.Controllers
             await Task.Delay((int)wait * 1000);//* 1000 para que sean segundos
             return $"Hello, {name}!";
         }
+
+
+        [HttpGet("delaybye/{name}")]
+        public async Task<ActionResult<string>> GetDelayBye(string name)
+        {
+            var wait = RandomGen.NextDouble() * 10 + 1; //me trae un numero entre 1 y 10
+            await Task.Delay((int)wait * 1000);//* 1000 para que sean segundos
+            return $"Bye, {name}!";
+        }
     }
 }
