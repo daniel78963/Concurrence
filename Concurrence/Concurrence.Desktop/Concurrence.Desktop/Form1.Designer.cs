@@ -48,6 +48,9 @@
             btnRetry = new Button();
             groupBox1 = new GroupBox();
             btnOneTask = new Button();
+            groupBox2 = new GroupBox();
+            btnStartStatusControlled = new Button();
+            txtInputStatusValue = new TextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -55,6 +58,7 @@
             ((System.ComponentModel.ISupportInitialize)loadingGif).BeginInit();
             gbReintento.SuspendLayout();
             groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // btnStart
@@ -239,11 +243,40 @@
             btnOneTask.UseVisualStyleBackColor = true;
             btnOneTask.Click += btnOneTask_Click;
             // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(txtInputStatusValue);
+            groupBox2.Controls.Add(btnStartStatusControlled);
+            groupBox2.Location = new Point(434, 137);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(354, 56);
+            groupBox2.TabIndex = 12;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Status Controlado";
+            // 
+            // btnStartStatusControlled
+            // 
+            btnStartStatusControlled.Location = new Point(13, 24);
+            btnStartStatusControlled.Name = "btnStartStatusControlled";
+            btnStartStatusControlled.Size = new Size(117, 25);
+            btnStartStatusControlled.TabIndex = 6;
+            btnStartStatusControlled.Text = "Start";
+            btnStartStatusControlled.UseVisualStyleBackColor = true;
+            btnStartStatusControlled.Click += btnStartStatusControlled_Click;
+            // 
+            // txtInputStatusValue
+            // 
+            txtInputStatusValue.Location = new Point(146, 25);
+            txtInputStatusValue.Name = "txtInputStatusValue";
+            txtInputStatusValue.Size = new Size(191, 25);
+            txtInputStatusValue.TabIndex = 7;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(865, 522);
+            Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Controls.Add(gbReintento);
             Controls.Add(loadingGif);
@@ -265,6 +298,8 @@
             ((System.ComponentModel.ISupportInitialize)loadingGif).EndInit();
             gbReintento.ResumeLayout(false);
             groupBox1.ResumeLayout(false);
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -291,5 +326,8 @@
         private Button btnRetry;
         private GroupBox groupBox1;
         private Button btnOneTask;
+        private GroupBox groupBox2;
+        private Button btnStartStatusControlled;
+        private TextBox txtInputStatusValue;
     }
 }

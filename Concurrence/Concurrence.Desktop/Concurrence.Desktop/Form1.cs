@@ -626,5 +626,47 @@ namespace Concurrence.Desktop
             cts.Cancel();
             return await task;
         }
+
+        private async void btnStartStatusControlled_Click(object sender, EventArgs e)
+        {
+            loadingGif.Visible = true;
+            var task = EvaluateValue(txtInputStatusValue.Text);
+
+            Console.WriteLine("Begin");
+            Console.WriteLine($"Is Completed {task.IsCompleted}");
+            Console.WriteLine($"Is Canceled {task.IsCanceled}");
+            Console.WriteLine($"Is Faulted {task.IsFaulted}");
+
+            try
+            {
+                await task;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception: {ex.Message}");
+            }
+
+            Console.WriteLine("End");
+            Console.WriteLine("");
+            loadingGif.Visible = false;
+        }
+
+        public Task EvaluateValue(string value)
+        {
+            var tcs = new TaskCompletionSource<object>(TaskCreationOptions.RunContinuationsAsynchronously);
+            if (value == "1")
+            {
+                tcs.SetResult(null);
+            }
+            else if (value == "2")
+            {
+                tcs.SetCanceled();
+            }
+            else
+            {
+                tcs.SetException(new ApplicationException($"Invalid value {value}"));
+            }
+            return tcs.Task;
+        }
     }
 }
