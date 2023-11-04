@@ -2,7 +2,6 @@ using Concurrence.Desktop.Model;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Text;
-using System.Xml.Linq;
 
 namespace Concurrence.Desktop
 {
@@ -579,6 +578,13 @@ namespace Concurrence.Desktop
             loadingGif.Visible = false;
         }
 
-        //private async Task(T) ExecuteTask<T>
+        private async Task<T> ExecuteOneTask<T>(IEnumerable<Func<CancellationToken, Task<T>>> functions)
+        {
+            var cts = new CancellationTokenSource();
+            var tasks = functions.Select(funcion => funcion(cts.Token));
+            var task = await Task.WhenAny(tasks);
+            cts.Cancel();
+            return await task;
+        }
     }
 }
