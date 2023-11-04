@@ -570,11 +570,19 @@ namespace Concurrence.Desktop
             cancellationTokenSource = new CancellationTokenSource();
             var token = cancellationTokenSource.Token;
             var names = new string[] { "Dani", "Rocko", "Camila", "Juan" };
-            var taskHTTP = names.Select(x => GetGreetingsDelayCancel(x, token));
-            var task = await Task.WhenAny(taskHTTP); //cualquiera de las tareas que termine
-            var content = await task;
-            Console.WriteLine(content.ToUpper());
-            cancellationTokenSource.Cancel();
+            //var taskHTTP = names.Select(x => GetGreetingsDelayCancel(x, token));
+            //var task = await Task.WhenAny(taskHTTP); //cualquiera de las tareas que termine
+            //var content = await task;
+            //Console.WriteLine(content.ToUpper());
+            //cancellationTokenSource.Cancel();
+
+            var taskHTTP = names.Select(x =>
+            {
+                Func<CancellationToken, Task<string>> function = (cancelT) => GetGreetingsDelayCancel(x, cancelT);
+                return function;
+            });
+            var content =
+
             loadingGif.Visible = false;
         }
 
