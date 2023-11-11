@@ -49,8 +49,11 @@
             groupBox1 = new GroupBox();
             btnOneTask = new Button();
             groupBox2 = new GroupBox();
-            btnStartStatusControlled = new Button();
             txtInputStatusValue = new TextBox();
+            btnStartStatusControlled = new Button();
+            groupBox3 = new GroupBox();
+            textBox1 = new TextBox();
+            button2 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -59,6 +62,7 @@
             gbReintento.SuspendLayout();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
+            groupBox3.SuspendLayout();
             SuspendLayout();
             // 
             // btnStart
@@ -254,6 +258,13 @@
             groupBox2.TabStop = false;
             groupBox2.Text = "Status Controlado";
             // 
+            // txtInputStatusValue
+            // 
+            txtInputStatusValue.Location = new Point(146, 25);
+            txtInputStatusValue.Name = "txtInputStatusValue";
+            txtInputStatusValue.Size = new Size(191, 25);
+            txtInputStatusValue.TabIndex = 7;
+            // 
             // btnStartStatusControlled
             // 
             btnStartStatusControlled.Location = new Point(13, 24);
@@ -264,18 +275,39 @@
             btnStartStatusControlled.UseVisualStyleBackColor = true;
             btnStartStatusControlled.Click += btnStartStatusControlled_Click;
             // 
-            // txtInputStatusValue
+            // groupBox3
             // 
-            txtInputStatusValue.Location = new Point(146, 25);
-            txtInputStatusValue.Name = "txtInputStatusValue";
-            txtInputStatusValue.Size = new Size(191, 25);
-            txtInputStatusValue.TabIndex = 7;
+            groupBox3.Controls.Add(textBox1);
+            groupBox3.Controls.Add(button2);
+            groupBox3.Location = new Point(434, 199);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(354, 56);
+            groupBox3.TabIndex = 13;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Cancelando Cualquier Tarea";
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(146, 25);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(191, 25);
+            textBox1.TabIndex = 7;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(13, 24);
+            button2.Name = "button2";
+            button2.Size = new Size(117, 25);
+            button2.TabIndex = 6;
+            button2.Text = "Start";
+            button2.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(865, 522);
+            Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Controls.Add(gbReintento);
@@ -300,6 +332,8 @@
             groupBox1.ResumeLayout(false);
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -329,5 +363,8 @@
         private GroupBox groupBox2;
         private Button btnStartStatusControlled;
         private TextBox txtInputStatusValue;
+        private GroupBox groupBox3;
+        private TextBox textBox1;
+        private Button button2;
     }
 }
