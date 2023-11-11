@@ -52,8 +52,8 @@
             txtInputStatusValue = new TextBox();
             btnStartStatusControlled = new Button();
             groupBox3 = new GroupBox();
-            textBox1 = new TextBox();
-            button2 = new Button();
+            btnCancellAnyTask = new Button();
+            btnCancelTask = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -277,8 +277,8 @@
             // 
             // groupBox3
             // 
-            groupBox3.Controls.Add(textBox1);
-            groupBox3.Controls.Add(button2);
+            groupBox3.Controls.Add(btnCancelTask);
+            groupBox3.Controls.Add(btnCancellAnyTask);
             groupBox3.Location = new Point(434, 199);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(354, 56);
@@ -286,21 +286,25 @@
             groupBox3.TabStop = false;
             groupBox3.Text = "Cancelando Cualquier Tarea";
             // 
-            // textBox1
+            // btnCancellAnyTask
             // 
-            textBox1.Location = new Point(146, 25);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(191, 25);
-            textBox1.TabIndex = 7;
+            btnCancellAnyTask.Location = new Point(13, 24);
+            btnCancellAnyTask.Name = "btnCancellAnyTask";
+            btnCancellAnyTask.Size = new Size(117, 25);
+            btnCancellAnyTask.TabIndex = 6;
+            btnCancellAnyTask.Text = "Start";
+            btnCancellAnyTask.UseVisualStyleBackColor = true;
+            btnCancellAnyTask.Click += button2_Click;
             // 
-            // button2
+            // btnCancelTask
             // 
-            button2.Location = new Point(13, 24);
-            button2.Name = "button2";
-            button2.Size = new Size(117, 25);
-            button2.TabIndex = 6;
-            button2.Text = "Start";
-            button2.UseVisualStyleBackColor = true;
+            btnCancelTask.Location = new Point(146, 24);
+            btnCancelTask.Name = "btnCancelTask";
+            btnCancelTask.Size = new Size(117, 25);
+            btnCancelTask.TabIndex = 7;
+            btnCancelTask.Text = "Cancel";
+            btnCancelTask.UseVisualStyleBackColor = true;
+            btnCancelTask.Click += btnCancelTask_Click;
             // 
             // Form1
             // 
@@ -333,7 +337,6 @@
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             groupBox3.ResumeLayout(false);
-            groupBox3.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -364,7 +367,7 @@
         private Button btnStartStatusControlled;
         private TextBox txtInputStatusValue;
         private GroupBox groupBox3;
-        private TextBox textBox1;
-        private Button button2;
+        private Button btnCancellAnyTask;
+        private Button btnCancelTask;
     }
 }

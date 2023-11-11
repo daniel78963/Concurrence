@@ -1,3 +1,4 @@
+using Concurrence.Desktop.Helpers;
 using Concurrence.Desktop.Model;
 using Newtonsoft.Json;
 using System.Diagnostics;
@@ -667,6 +668,33 @@ namespace Concurrence.Desktop
                 tcs.SetException(new ApplicationException($"Invalid value {value}"));
             }
             return tcs.Task;
+        }
+
+        private async void button2_Click(object sender, EventArgs e)
+        {
+            loadingGif.Visible = true;
+            cancellationTokenSource = new CancellationTokenSource();
+            try
+            {
+                var result = await Task.Run(async () =>
+                {
+                    await Task.Delay(5000);
+                    return 7;
+                }).WithCancellation(cancellationTokenSource.Token);
+                Console.WriteLine($"{result.ToString()}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally { cancellationTokenSource.Dispose(); }
+
+            loadingGif.Visible = false;
+        }
+
+        private void btnCancelTask_Click(object sender, EventArgs e)
+        {
+            cancellationTokenSource?.Cancel();
         }
     }
 }
