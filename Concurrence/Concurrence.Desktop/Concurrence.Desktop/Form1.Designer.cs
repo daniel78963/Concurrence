@@ -55,9 +55,10 @@
             btnCancelTask = new Button();
             btnCancellAnyTask = new Button();
             groupBox4 = new GroupBox();
+            button2 = new Button();
             btnIEnumerableAsync = new Button();
             btnIEnumerable = new Button();
-            button2 = new Button();
+            button3 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -313,19 +314,30 @@
             // 
             // groupBox4
             // 
+            groupBox4.Controls.Add(button3);
             groupBox4.Controls.Add(button2);
             groupBox4.Controls.Add(btnIEnumerableAsync);
             groupBox4.Controls.Add(btnIEnumerable);
             groupBox4.Location = new Point(12, 436);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(416, 56);
+            groupBox4.Size = new Size(416, 84);
             groupBox4.TabIndex = 14;
             groupBox4.TabStop = false;
             groupBox4.Text = "IEnumerable / Yield";
             // 
+            // button2
+            // 
+            button2.Location = new Point(259, 24);
+            button2.Name = "button2";
+            button2.Size = new Size(117, 25);
+            button2.TabIndex = 8;
+            button2.Text = "Cancel";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click_1;
+            // 
             // btnIEnumerableAsync
             // 
-            btnIEnumerableAsync.Location = new Point(146, 24);
+            btnIEnumerableAsync.Location = new Point(136, 24);
             btnIEnumerableAsync.Name = "btnIEnumerableAsync";
             btnIEnumerableAsync.Size = new Size(117, 25);
             btnIEnumerableAsync.TabIndex = 7;
@@ -343,15 +355,15 @@
             btnIEnumerable.UseVisualStyleBackColor = true;
             btnIEnumerable.Click += btnIEnumerable_Click;
             // 
-            // button2
+            // button3
             // 
-            button2.Location = new Point(269, 24);
-            button2.Name = "button2";
-            button2.Size = new Size(117, 25);
-            button2.TabIndex = 8;
-            button2.Text = "Cancel";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click_1;
+            button3.Location = new Point(136, 53);
+            button3.Name = "button3";
+            button3.Size = new Size(117, 25);
+            button3.TabIndex = 9;
+            button3.Text = "Start Async";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
             // 
             // Form1
             // 
@@ -422,5 +434,6 @@
         private Button btnIEnumerableAsync;
         private Button btnIEnumerable;
         private Button button2;
+        private Button button3;
     }
 }

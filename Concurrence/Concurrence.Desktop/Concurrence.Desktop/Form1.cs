@@ -2,6 +2,7 @@ using Concurrence.Desktop.Helpers;
 using Concurrence.Desktop.Model;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Concurrence.Desktop
@@ -754,6 +755,50 @@ namespace Concurrence.Desktop
         private void button2_Click_1(object sender, EventArgs e)
         {
             cancellationTokenSource?.Cancel();
+        }
+
+        private async Task ProcessNames(IAsyncEnumerable<string> names)
+        { 
+            try
+            {
+                await foreach (var name in names.WithCancellation(cancellationTokenSource.Token))
+                {
+                    Console.WriteLine(name);
+                }
+            }
+            catch (TaskCanceledException cex)
+            {
+                Console.WriteLine("Operation cancelled");
+            }
+            finally
+            {
+                cancellationTokenSource?.Dispose();
+            }
+        }
+
+        private async IAsyncEnumerable<string> GenerateNamesAsync2([EnumeratorCancellation] CancellationToken token = default)
+        {
+            yield return "Dani";
+            await Task.Delay(500, token);
+            yield return "Camilo 0.5 s";
+            await Task.Delay(2000, token);
+            yield return "Camilo 2 s";
+            await Task.Delay(500, token);
+            yield return "Camilo 0.5";
+            await Task.Delay(300, token);
+            yield return "Camilo 0.3";
+        }
+
+        private async void button3_Click(object sender, EventArgs e)
+        {
+            loadingGif.Visible = false;
+            cancellationTokenSource = new CancellationTokenSource();
+
+            var namesEnumerable = GenerateNamesAsync2();
+            await ProcessNames(namesEnumerable);
+
+            Console.WriteLine("Finish");
+            loadingGif.Visible = false;
         }
     }
 }
