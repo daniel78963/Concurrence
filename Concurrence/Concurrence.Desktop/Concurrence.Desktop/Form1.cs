@@ -699,7 +699,42 @@ namespace Concurrence.Desktop
 
         private IEnumerable<string> GenerateNames()
         {
-
+            yield return "Dani";
+            yield return "Camilo";
         }
+
+        private void btnIEnumerable_Click(object sender, EventArgs e)
+        {
+            loadingGif.Visible = false;
+            foreach (var name in GenerateNames())
+            {
+                Console.WriteLine(name);
+            }
+            loadingGif.Visible = false;
+        }
+
+        private async IAsyncEnumerable<string> GenerateNamesAsync()
+        {
+            yield return "Dani";
+            await Task.Delay(500);
+            yield return "Camilo 0.5 s";
+            await Task.Delay(2000);
+            yield return "Camilo 2 s";
+            await Task.Delay(500);
+            yield return "Camilo 0.5";
+            await Task.Delay(300);
+            yield return "Camilo 0.3";
+        }
+
+        private async void btnIEnumerableAsync_Click(object sender, EventArgs e)
+        {
+            loadingGif.Visible = false;
+            await foreach (var name in GenerateNamesAsync())
+            {
+                Console.WriteLine(name);
+            }
+            loadingGif.Visible = false;
+        }
+
     }
 }
