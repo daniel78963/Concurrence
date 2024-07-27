@@ -1,7 +1,9 @@
 using Concurrence.Desktop.Helpers;
 using Concurrence.Desktop.Model;
 using Newtonsoft.Json;
+using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -758,7 +760,8 @@ namespace Concurrence.Desktop
         }
 
         private async Task ProcessNames(IAsyncEnumerable<string> names)
-        { 
+        {
+        //EnumeratorCancellation: atributo especial para trabajar con el WithCancellation y que reconozca que es un método que recibe datos(parámetros) con cancelación de token.
             try
             {
                 await foreach (var name in names.WithCancellation(cancellationTokenSource.Token))
@@ -778,6 +781,7 @@ namespace Concurrence.Desktop
 
         private async IAsyncEnumerable<string> GenerateNamesAsync2([EnumeratorCancellation] CancellationToken token = default)
         {
+        //EnumeratorCancellation: atributo especial para trabajar con el WithCancellation y que reconozca que es un método que recibe datos(parámetros) con cancelación de token.
             yield return "Dani";
             await Task.Delay(500, token);
             yield return "Camilo 0.5 s";
@@ -789,6 +793,11 @@ namespace Concurrence.Desktop
             yield return "Camilo 0.3";
         }
 
+        /// <summary>
+        /// esto es para cuando no tengo control del método para cancelar, si no que tengo es control sobre el retorno del método
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void button3_Click(object sender, EventArgs e)
         {
             loadingGif.Visible = false;
@@ -796,8 +805,8 @@ namespace Concurrence.Desktop
 
             var namesEnumerable = GenerateNamesAsync2();
             await ProcessNames(namesEnumerable);
-
             Console.WriteLine("Finish");
+            cancellationTokenSource = null;
             loadingGif.Visible = false;
         }
     }
