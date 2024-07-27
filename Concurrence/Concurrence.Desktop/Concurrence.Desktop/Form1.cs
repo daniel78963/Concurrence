@@ -713,28 +713,47 @@ namespace Concurrence.Desktop
             loadingGif.Visible = false;
         }
 
-        private async IAsyncEnumerable<string> GenerateNamesAsync()
+        private async IAsyncEnumerable<string> GenerateNamesAsync(CancellationToken token = default)
         {
             yield return "Dani";
-            await Task.Delay(500);
+            await Task.Delay(500, token);
             yield return "Camilo 0.5 s";
-            await Task.Delay(2000);
+            await Task.Delay(2000, token);
             yield return "Camilo 2 s";
-            await Task.Delay(500);
+            await Task.Delay(500, token);
             yield return "Camilo 0.5";
-            await Task.Delay(300);
+            await Task.Delay(300, token);
             yield return "Camilo 0.3";
         }
 
         private async void btnIEnumerableAsync_Click(object sender, EventArgs e)
         {
             loadingGif.Visible = false;
-            await foreach (var name in GenerateNamesAsync())
+            cancellationTokenSource = new CancellationTokenSource();
+
+            try
             {
-                Console.WriteLine(name);
+                await foreach (var name in GenerateNamesAsync(cancellationTokenSource.Token))
+                {
+                    Console.WriteLine(name);
+                }
             }
+            catch (TaskCanceledException cex)
+            {
+                Console.WriteLine("Operation cancelled");
+            }
+            finally
+            {
+                cancellationTokenSource?.Dispose();
+            }
+
+            Console.WriteLine("Finish");
             loadingGif.Visible = false;
         }
 
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            cancellationTokenSource?.Cancel();
+        }
     }
 }

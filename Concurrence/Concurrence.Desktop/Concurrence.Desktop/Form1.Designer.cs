@@ -57,6 +57,7 @@
             groupBox4 = new GroupBox();
             btnIEnumerableAsync = new Button();
             btnIEnumerable = new Button();
+            button2 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -312,11 +313,12 @@
             // 
             // groupBox4
             // 
+            groupBox4.Controls.Add(button2);
             groupBox4.Controls.Add(btnIEnumerableAsync);
             groupBox4.Controls.Add(btnIEnumerable);
             groupBox4.Location = new Point(12, 436);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(354, 56);
+            groupBox4.Size = new Size(416, 56);
             groupBox4.TabIndex = 14;
             groupBox4.TabStop = false;
             groupBox4.Text = "IEnumerable / Yield";
@@ -340,6 +342,16 @@
             btnIEnumerable.Text = "Start";
             btnIEnumerable.UseVisualStyleBackColor = true;
             btnIEnumerable.Click += btnIEnumerable_Click;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(269, 24);
+            button2.Name = "button2";
+            button2.Size = new Size(117, 25);
+            button2.TabIndex = 8;
+            button2.Text = "Cancel";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click_1;
             // 
             // Form1
             // 
@@ -409,5 +421,6 @@
         private GroupBox groupBox4;
         private Button btnIEnumerableAsync;
         private Button btnIEnumerable;
+        private Button button2;
     }
 }
