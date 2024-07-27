@@ -52,8 +52,11 @@
             txtInputStatusValue = new TextBox();
             btnStartStatusControlled = new Button();
             groupBox3 = new GroupBox();
-            btnCancellAnyTask = new Button();
             btnCancelTask = new Button();
+            btnCancellAnyTask = new Button();
+            groupBox4 = new GroupBox();
+            button2 = new Button();
+            button3 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -63,6 +66,7 @@
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
+            groupBox4.SuspendLayout();
             SuspendLayout();
             // 
             // btnStart
@@ -286,16 +290,6 @@
             groupBox3.TabStop = false;
             groupBox3.Text = "Cancelando Cualquier Tarea";
             // 
-            // btnCancellAnyTask
-            // 
-            btnCancellAnyTask.Location = new Point(13, 24);
-            btnCancellAnyTask.Name = "btnCancellAnyTask";
-            btnCancellAnyTask.Size = new Size(117, 25);
-            btnCancellAnyTask.TabIndex = 6;
-            btnCancellAnyTask.Text = "Start";
-            btnCancellAnyTask.UseVisualStyleBackColor = true;
-            btnCancellAnyTask.Click += button2_Click;
-            // 
             // btnCancelTask
             // 
             btnCancelTask.Location = new Point(146, 24);
@@ -306,11 +300,51 @@
             btnCancelTask.UseVisualStyleBackColor = true;
             btnCancelTask.Click += btnCancelTask_Click;
             // 
+            // btnCancellAnyTask
+            // 
+            btnCancellAnyTask.Location = new Point(13, 24);
+            btnCancellAnyTask.Name = "btnCancellAnyTask";
+            btnCancellAnyTask.Size = new Size(117, 25);
+            btnCancellAnyTask.TabIndex = 6;
+            btnCancellAnyTask.Text = "Start";
+            btnCancellAnyTask.UseVisualStyleBackColor = true;
+            btnCancellAnyTask.Click += button2_Click;
+            // 
+            // groupBox4
+            // 
+            groupBox4.Controls.Add(button2);
+            groupBox4.Controls.Add(button3);
+            groupBox4.Location = new Point(12, 436);
+            groupBox4.Name = "groupBox4";
+            groupBox4.Size = new Size(354, 56);
+            groupBox4.TabIndex = 14;
+            groupBox4.TabStop = false;
+            groupBox4.Text = "IEnumerable / Yield";
+            // 
+            // button2
+            // 
+            button2.Location = new Point(146, 24);
+            button2.Name = "button2";
+            button2.Size = new Size(117, 25);
+            button2.TabIndex = 7;
+            button2.Text = "Cancel";
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            button3.Location = new Point(13, 24);
+            button3.Name = "button3";
+            button3.Size = new Size(117, 25);
+            button3.TabIndex = 6;
+            button3.Text = "Start";
+            button3.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(865, 522);
+            Controls.Add(groupBox4);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
@@ -337,6 +371,7 @@
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             groupBox3.ResumeLayout(false);
+            groupBox4.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -369,5 +404,8 @@
         private GroupBox groupBox3;
         private Button btnCancellAnyTask;
         private Button btnCancelTask;
+        private GroupBox groupBox4;
+        private Button button2;
+        private Button button3;
     }
 }

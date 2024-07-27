@@ -696,5 +696,10 @@ namespace Concurrence.Desktop
         {
             cancellationTokenSource?.Cancel();
         }
+
+        private IEnumerable<string> GenerateNames()
+        {
+
+        }
     }
 }
