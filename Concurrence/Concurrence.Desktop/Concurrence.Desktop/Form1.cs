@@ -1,9 +1,7 @@
 using Concurrence.Desktop.Helpers;
 using Concurrence.Desktop.Model;
 using Newtonsoft.Json;
-using System;
 using System.Diagnostics;
-using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -761,7 +759,7 @@ namespace Concurrence.Desktop
 
         private async Task ProcessNames(IAsyncEnumerable<string> names)
         {
-        //EnumeratorCancellation: atributo especial para trabajar con el WithCancellation y que reconozca que es un método que recibe datos(parámetros) con cancelación de token.
+            //EnumeratorCancellation: atributo especial para trabajar con el WithCancellation y que reconozca que es un método que recibe datos(parámetros) con cancelación de token.
             try
             {
                 await foreach (var name in names.WithCancellation(cancellationTokenSource.Token))
@@ -781,7 +779,7 @@ namespace Concurrence.Desktop
 
         private async IAsyncEnumerable<string> GenerateNamesAsync2([EnumeratorCancellation] CancellationToken token = default)
         {
-        //EnumeratorCancellation: atributo especial para trabajar con el WithCancellation y que reconozca que es un método que recibe datos(parámetros) con cancelación de token.
+            //EnumeratorCancellation: atributo especial para trabajar con el WithCancellation y que reconozca que es un método que recibe datos(parámetros) con cancelación de token.
             yield return "Dani";
             await Task.Delay(500, token);
             yield return "Camilo 0.5 s";
