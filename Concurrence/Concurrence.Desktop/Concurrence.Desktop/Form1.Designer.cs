@@ -55,10 +55,15 @@
             btnCancelTask = new Button();
             btnCancellAnyTask = new Button();
             groupBox4 = new GroupBox();
+            button3 = new Button();
             button2 = new Button();
             btnIEnumerableAsync = new Button();
             btnIEnumerable = new Button();
-            button3 = new Button();
+            groupBox5 = new GroupBox();
+            button4 = new Button();
+            button5 = new Button();
+            button6 = new Button();
+            button7 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -69,6 +74,7 @@
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
             groupBox4.SuspendLayout();
+            groupBox5.SuspendLayout();
             SuspendLayout();
             // 
             // btnStart
@@ -325,6 +331,16 @@
             groupBox4.TabStop = false;
             groupBox4.Text = "IEnumerable / Yield";
             // 
+            // button3
+            // 
+            button3.Location = new Point(136, 53);
+            button3.Name = "button3";
+            button3.Size = new Size(117, 25);
+            button3.TabIndex = 9;
+            button3.Text = "Start Async";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
             // button2
             // 
             button2.Location = new Point(259, 24);
@@ -355,21 +371,61 @@
             btnIEnumerable.UseVisualStyleBackColor = true;
             btnIEnumerable.Click += btnIEnumerable_Click;
             // 
-            // button3
+            // groupBox5
             // 
-            button3.Location = new Point(136, 53);
-            button3.Name = "button3";
-            button3.Size = new Size(117, 25);
-            button3.TabIndex = 9;
-            button3.Text = "Start Async";
-            button3.UseVisualStyleBackColor = true;
-            button3.Click += button3_Click;
+            groupBox5.Controls.Add(button4);
+            groupBox5.Controls.Add(button5);
+            groupBox5.Controls.Add(button6);
+            groupBox5.Controls.Add(button7);
+            groupBox5.Location = new Point(434, 436);
+            groupBox5.Name = "groupBox5";
+            groupBox5.Size = new Size(416, 84);
+            groupBox5.TabIndex = 15;
+            groupBox5.TabStop = false;
+            groupBox5.Text = "Antipatrones";
+            // 
+            // button4
+            // 
+            button4.Location = new Point(136, 53);
+            button4.Name = "button4";
+            button4.Size = new Size(117, 25);
+            button4.TabIndex = 9;
+            button4.Text = "Start Async";
+            button4.UseVisualStyleBackColor = true;
+            // 
+            // button5
+            // 
+            button5.Location = new Point(259, 24);
+            button5.Name = "button5";
+            button5.Size = new Size(117, 25);
+            button5.TabIndex = 8;
+            button5.Text = "Cancel";
+            button5.UseVisualStyleBackColor = true;
+            // 
+            // button6
+            // 
+            button6.Location = new Point(136, 24);
+            button6.Name = "button6";
+            button6.Size = new Size(117, 25);
+            button6.TabIndex = 7;
+            button6.Text = "Start Async";
+            button6.UseVisualStyleBackColor = true;
+            // 
+            // button7
+            // 
+            button7.Location = new Point(13, 24);
+            button7.Name = "button7";
+            button7.Size = new Size(117, 25);
+            button7.TabIndex = 6;
+            button7.Text = "Start";
+            button7.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(865, 522);
+            Controls.Add(groupBox5);
             Controls.Add(groupBox4);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
@@ -398,6 +454,7 @@
             groupBox2.PerformLayout();
             groupBox3.ResumeLayout(false);
             groupBox4.ResumeLayout(false);
+            groupBox5.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -435,5 +492,10 @@
         private Button btnIEnumerable;
         private Button button2;
         private Button button3;
+        private GroupBox groupBox5;
+        private Button button4;
+        private Button button5;
+        private Button button6;
+        private Button button7;
     }
 }
