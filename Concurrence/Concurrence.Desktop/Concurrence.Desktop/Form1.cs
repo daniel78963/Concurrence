@@ -807,5 +807,12 @@ namespace Concurrence.Desktop
             cancellationTokenSource = null;
             loadingGif.Visible = false;
         }
+
+        //Antipatrones
+        private async Task<string> GetValue()
+        {
+            await Task.Delay(1000);
+            return "Dani";
+        }
     }
 }
