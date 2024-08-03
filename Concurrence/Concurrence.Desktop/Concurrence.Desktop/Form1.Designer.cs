@@ -419,6 +419,7 @@
             button7.TabIndex = 6;
             button7.Text = "Start";
             button7.UseVisualStyleBackColor = true;
+            button7.Click += button7_Click;
             // 
             // Form1
             // 

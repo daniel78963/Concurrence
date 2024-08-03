@@ -798,7 +798,7 @@ namespace Concurrence.Desktop
         /// <param name="e"></param>
         private async void button3_Click(object sender, EventArgs e)
         {
-            loadingGif.Visible = false;
+            loadingGif.Visible = true;
             cancellationTokenSource = new CancellationTokenSource();
 
             var namesEnumerable = GenerateNamesAsync2();
@@ -813,6 +813,14 @@ namespace Concurrence.Desktop
         {
             await Task.Delay(1000);
             return "Dani";
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            loadingGif.Visible = true;
+            var value = GetValue().Result;
+            Console.WriteLine(value);
+            loadingGif.Visible = false;
         }
     }
 }
