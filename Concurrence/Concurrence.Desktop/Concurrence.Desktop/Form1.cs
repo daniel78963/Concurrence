@@ -809,18 +809,40 @@ namespace Concurrence.Desktop
         }
 
         //Antipatrones
+        //Sincrono dentro de un asincrono
         private async Task<string> GetValue()
         {
             await Task.Delay(1000);
+            ////2da Solución, con esto no se bloquea el hilo principal, animaciones y demás, 
+            ////pero al menos no se crashea la app
+            //await Task.Delay(1000).ConfigureAwait(false);
             return "Dani";
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
             loadingGif.Visible = true;
+
             var value = GetValue().Result;
             Console.WriteLine(value);
+
+            ////1ra solución, no bloquar el hilo principal
+            //var value = GetValue();
+            //Console.WriteLine(value);
+
             loadingGif.Visible = false;
+        }
+
+        //Asincrono dentro de un síncrono
+        private string GetValueSync()
+        {
+            return "Dani";
+        }
+
+        private async Task<string> GetValueAsync()
+        {
+            //Antipatrón
+            return await Task.Run(() => GetValueSync());
         }
     }
 }
