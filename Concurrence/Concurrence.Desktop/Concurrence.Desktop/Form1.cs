@@ -844,5 +844,7 @@ namespace Concurrence.Desktop
             //Antipatrón
             return await Task.Run(() => GetValueSync());
         }
+
+
     }
 }

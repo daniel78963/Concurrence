@@ -40,6 +40,14 @@ namespace Concurrence.WebAPI.Controllers
             return $"Hello, {name}!";
         }
 
+        /// <summary>
+        /// Antipatrón
+        /// </summary>
+        private async void OperationVoidAsync()
+        {
+
+        }
+
 
         [HttpGet("delaybye/{name}")]
         public async Task<ActionResult<string>> GetDelayBye(string name)
