@@ -36,7 +36,12 @@ namespace Concurrence.WebAPI.Controllers
         public async Task<ActionResult<string>> GetGreetingsDelayCancell(string name)
         {
             var wait = RandomGen.NextDouble() * 10 + 1; //me trae un numero entre 1 y 10
+
             await Task.Delay((int)wait * 1000);//* 1000 para que sean segundos
+
+            //Ejemplo de antipatrones
+            //OperationVoidAsync();
+            //OperationTaskAsync();
             return $"Hello, {name}!";
         }
 
@@ -45,7 +50,20 @@ namespace Concurrence.WebAPI.Controllers
         /// </summary>
         private async void OperationVoidAsync()
         {
+            await Task.Delay(1);
+            throw new ApplicationException();
+        }
 
+        /// <summary>
+        ///   Tener un try catch no soluciona el problema tampoco.
+        ///   Así, la exception queda dentro del hilo del Task
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="ApplicationException"></exception>
+        private async Task OperationTaskAsync()
+        {
+            await Task.Delay(1);
+            throw new ApplicationException();
         }
 
 
