@@ -1,7 +1,10 @@
 using Concurrence.Desktop.Helpers;
 using Concurrence.Desktop.Model;
 using Newtonsoft.Json;
+using System;
 using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -892,6 +895,31 @@ namespace Concurrence.Desktop
 
         //-Hacer uso de using vble
         //Using var cts3 = new CancellationTokenSource(tiempoLimite);
+
+        private async Task MethodAcyncEx()
+        {
+            using (var streamWriter = new StreamWriter(stream))
+            {
+                await streamWriter.WriteAsync("Hello world");
+            }
+            //es posible que cuando se haga el dispose aún existan datos en el buffer,
+            //estos datos se van a transferir de manera sincrona
+
+            //solution 1
+            await using (var streamWriter = new StreamWriter(stream))
+            {
+                await streamWriter.WriteAsync("Hello world");
+            }
+
+            //solution 2
+            using (var streamWriter = new StreamWriter(stream))
+            {
+                await streamWriter.WriteAsync("Hello world");
+                await streamWriter.FlushAsync();
+            }
+            //Flush es la operación que hace el vaciado de toda la información que hay en el buffer hacia su destino.
+            //Lo mejor es usar Flush
+        }
 
     }
 }
