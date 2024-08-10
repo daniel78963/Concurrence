@@ -870,6 +870,28 @@ namespace Concurrence.Desktop
             loadingGif.Visible = false;
         }
 
+        //        3.5.	Hacer Dispose a los CancellationToken - Timers
+        //Vid 46
+        //A los timers debemos hacerles siempre dispose.Los cancellationToken internamente utilizan timers.
+        //Por regla general, si algo hereda de dispose, deberíamos hacerles siempre dispose.
+
+        //3 formas:
+        //-	
+        //Var tiempoLimitie = TimeSpan.FromSeconds(5);
+        //        Try
+        //{
+        //cancellationTokenSource = new CancellationTokenSource(tiempoLimite);
+        //    }
+        //    Finally{
+        //cancellationTokenSource.Dispose();
+        //}
+
+        //-Hacer uso de Using
+        //Using(var cts2 = new CancellationTokenSource(tiempoLimite)){
+        //}
+
+        //-Hacer uso de using vble
+        //Using var cts3 = new CancellationTokenSource(tiempoLimite);
 
     }
 }
