@@ -42,6 +42,7 @@ namespace Concurrence.WebAPI.Controllers
             //Ejemplo de antipatrones
             //OperationVoidAsync();
             //OperationTaskAsync();
+            //Si temenos un void con excepción, solo colapsa el método, pero no toda la app o api
             return $"Hello, {name}!";
         }
 

@@ -845,6 +845,31 @@ namespace Concurrence.Desktop
             return await Task.Run(() => GetValueSync());
         }
 
+        private async void button39_Click(object sender, EventArgs e)
+        {
+            loadingGif.Visible = true;
+
+            //var resultStartNew = await await Task.Factory.StartNew(async () =>
+            var resultStartNew = await Task.Factory.StartNew(async () =>
+            {
+                //Este delegado queda envuelto en otro Task. StarNew quedaria
+                //Task<Task<int>>, hay que colcoar otro await
+                // o utilizar unwrap
+                await Task.Delay(1000);
+                return 7;
+            }).Unwrap();
+            var resultRun = await Task.Run(async () =>
+            {
+                await Task.Delay(1000);
+                return 7;
+            });
+
+            Console.WriteLine($"Result StartNew: {resultStartNew}");
+            Console.WriteLine("----------------");
+            Console.WriteLine($"Result Task.Run: {resultRun}");
+            loadingGif.Visible = false;
+        }
+
 
     }
 }
