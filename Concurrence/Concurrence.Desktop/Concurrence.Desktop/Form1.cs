@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Concurrence.Desktop
 {
@@ -923,7 +924,7 @@ namespace Concurrence.Desktop
         }
 
         //PARALELISMO
-        private void button11_Click(object sender, EventArgs e)
+        private async Task button11_Click(object sender, EventArgs e)
         {
             loadingGif.Visible = true;
             var directoryCurrent = AppDomain.CurrentDomain.BaseDirectory;
@@ -932,6 +933,37 @@ namespace Concurrence.Desktop
             PrepareExecution(destionationBaseParallel, destionationBaseSecuential);
 
             Console.WriteLine("begin");
+            var images = GetImages();
+
+            //Secuential
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+            foreach (var image in images)
+            {
+                await ProcesarImagen(destionationBaseSecuential, image);
+            }
+
+            var tiempoSecuencial = stopwatch.ElapsedMilliseconds / 1000.0;
+
+            Console.WriteLine("Secuencial - duración en segundos: {0}",
+                    tiempoSecuencial);
+
+            stopwatch.Restart();
+
+            // Parte paralelo 
+
+            var tareasEnumerable = images.Select(async imagen => await ProcesarImagen(destionationBaseParallel, imagen));
+
+            await Task.WhenAll(tareasEnumerable);
+
+            var tiempoEnParalelo = stopwatch.ElapsedMilliseconds / 1000.0;
+
+            Console.WriteLine("Paralelo - duración en segundos: {0}",
+                   tiempoEnParalelo);
+
+            Utils.EscribirComparacion(tiempoSecuencial, tiempoEnParalelo);
+
+            Console.WriteLine("fin");
 
             loadingGif.Visible = false;
         }
@@ -962,6 +994,57 @@ namespace Concurrence.Desktop
             }
         }
 
+        private static List<ImageConcurrence> GetImages()
+        {
+            var images = new List<ImageConcurrence>();
+            for (int i = 0; i < 5; i++)
+            {
+                {
+                    images.Add(new ImageConcurrence()
+                    {
+                        Name = $"Img1_{i.ToString()}.jpg",
+                        URL = "https://images.cdn2.buscalibre.com/fit-in/360x360/db/2b/db2b538974143607a817fbc28577cb09.jpg"
+                    });
+                    images.Add(new ImageConcurrence()
+                    {
+                        Name = $"Img2_{i.ToString()}.jpg",
+                        URL = "https://images.cdn2.buscalibre.com/fit-in/360x360/db/2b/db2b538974143607a817fbc28577cb09.jpg"
+                    });
+                    images.Add(new ImageConcurrence()
+                    {
+                        Name = $"Img3_{i.ToString()}.jpg",
+                        URL = "https://images.cdn2.buscalibre.com/fit-in/360x360/db/2b/db2b538974143607a817fbc28577cb09.jpg"
+                    });
+                    images.Add(new ImageConcurrence()
+                    {
+                        Name = $"Img4_{i.ToString()}.jpg",
+                        URL = "https://images.cdn2.buscalibre.com/fit-in/360x360/db/2b/db2b538974143607a817fbc28577cb09.jpg"
+                    });
+                    images.Add(new ImageConcurrence()
+                    {
+                        Name = $"Img5_{i.ToString()}.jpg",
+                        URL = "https://images.cdn2.buscalibre.com/fit-in/360x360/db/2b/db2b538974143607a817fbc28577cb09.jpg"
+                    });
 
+                }
+            }
+            return images;
+        }
+
+        private async Task ProcesarImagen(string directorio, ImageConcurrence imagen)
+        {
+            var response = await httpClient.GetAsync(imagen.URL);
+            var content = await response.Content.ReadAsByteArrayAsync();
+
+            Bitmap bitmap;
+            using (var ms = new MemoryStream(content))
+            {
+                bitmap = new Bitmap(ms);
+            }
+
+            bitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
+            var destino = Path.Combine(directorio, imagen.Name);
+            bitmap.Save(destino);
+        }
     }
 }
