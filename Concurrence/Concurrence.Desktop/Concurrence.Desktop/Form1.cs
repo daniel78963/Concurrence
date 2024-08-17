@@ -1022,7 +1022,31 @@ namespace Concurrence.Desktop
                         Name = $"Img5_{i.ToString()}.jpg",
                         URL = "https://images.cdn2.buscalibre.com/fit-in/360x360/db/2b/db2b538974143607a817fbc28577cb09.jpg"
                     });
-
+                    images.Add(new ImageConcurrence()
+                    {
+                        Name = $"Img6_{i.ToString()}.jpg",
+                        URL = "https://images.cdn2.buscalibre.com/fit-in/360x360/db/2b/db2b538974143607a817fbc28577cb09.jpg"
+                    });
+                    images.Add(new ImageConcurrence()
+                    {
+                        Name = $"Img7_{i.ToString()}.jpg",
+                        URL = "https://images.cdn2.buscalibre.com/fit-in/360x360/db/2b/db2b538974143607a817fbc28577cb09.jpg"
+                    });
+                    images.Add(new ImageConcurrence()
+                    {
+                        Name = $"Img8_{i.ToString()}.jpg",
+                        URL = "https://images.cdn2.buscalibre.com/fit-in/360x360/db/2b/db2b538974143607a817fbc28577cb09.jpg"
+                    });
+                    images.Add(new ImageConcurrence()
+                    {
+                        Name = $"Img9_{i.ToString()}.jpg",
+                        URL = "https://images.cdn2.buscalibre.com/fit-in/360x360/db/2b/db2b538974143607a817fbc28577cb09.jpg"
+                    });
+                    images.Add(new ImageConcurrence()
+                    {
+                        Name = $"Img10_{i.ToString()}.jpg",
+                        URL = "https://images.cdn2.buscalibre.com/fit-in/360x360/db/2b/db2b538974143607a817fbc28577cb09.jpg"
+                    });
                 }
             }
             return images;
