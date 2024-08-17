@@ -924,7 +924,12 @@ namespace Concurrence.Desktop
         }
 
         //PARALELISMO
-        private async Task button11_Click(object sender, EventArgs e)
+        private void button11_Click(object sender, EventArgs e)
+        {
+            ProcessImagesParallel();
+        }
+
+        private async Task ProcessImagesParallel()
         {
             loadingGif.Visible = true;
             var directoryCurrent = AppDomain.CurrentDomain.BaseDirectory;
@@ -942,27 +947,19 @@ namespace Concurrence.Desktop
             {
                 await ProcesarImagen(destionationBaseSecuential, image);
             }
-
             var tiempoSecuencial = stopwatch.ElapsedMilliseconds / 1000.0;
-
             Console.WriteLine("Secuencial - duración en segundos: {0}",
                     tiempoSecuencial);
 
             stopwatch.Restart();
-
             // Parte paralelo 
 
             var tareasEnumerable = images.Select(async imagen => await ProcesarImagen(destionationBaseParallel, imagen));
-
             await Task.WhenAll(tareasEnumerable);
-
             var tiempoEnParalelo = stopwatch.ElapsedMilliseconds / 1000.0;
-
-            Console.WriteLine("Paralelo - duración en segundos: {0}",
-                   tiempoEnParalelo);
+            Console.WriteLine("Paralelo - duración en segundos: {0}", tiempoEnParalelo);
 
             Utils.EscribirComparacion(tiempoSecuencial, tiempoEnParalelo);
-
             Console.WriteLine("fin");
 
             loadingGif.Visible = false;
