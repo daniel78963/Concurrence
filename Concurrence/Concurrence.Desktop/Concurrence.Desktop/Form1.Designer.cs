@@ -465,8 +465,9 @@
             button10.Name = "button10";
             button10.Size = new Size(117, 25);
             button10.TabIndex = 7;
-            button10.Text = "Start Async";
+            button10.Text = "ParallelFor";
             button10.UseVisualStyleBackColor = true;
+            button10.Click += button10_Click;
             // 
             // button11
             // 

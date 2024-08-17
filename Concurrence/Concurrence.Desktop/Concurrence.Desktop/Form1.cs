@@ -1067,5 +1067,20 @@ namespace Concurrence.Desktop
             var destino = Path.Combine(directorio, imagen.Name);
             bitmap.Save(destino);
         }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            loadingGif.Visible = true;
+            Console.WriteLine("Secuential");
+            for (int i = 0; i < 11; i++)
+            {
+                Console.WriteLine(i);
+            }
+
+            Console.WriteLine("Parallel");
+            Parallel.For(0, 11, i => Console.WriteLine(i));
+
+            loadingGif.Visible = false;
+        }
     }
 }
