@@ -926,6 +926,12 @@ namespace Concurrence.Desktop
         private void button11_Click(object sender, EventArgs e)
         {
             loadingGif.Visible = true;
+            var directoryCurrent = AppDomain.CurrentDomain.BaseDirectory;
+            var destionationBaseSecuential = Path.Combine(directoryCurrent, @"D:\tmpBlazorFiles\secuentialResult");
+            var destionationBaseParallel = Path.Combine(directoryCurrent, @"D:\tmpBlazorFiles\parallelResult");
+            PrepareExecution(destionationBaseParallel, destionationBaseSecuential);
+
+            Console.WriteLine("begin");
 
             loadingGif.Visible = false;
         }
