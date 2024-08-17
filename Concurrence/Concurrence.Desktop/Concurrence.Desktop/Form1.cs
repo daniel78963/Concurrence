@@ -898,6 +898,7 @@ namespace Concurrence.Desktop
 
         private async Task MethodAcyncEx()
         {
+            Stream stream = new MemoryStream();
             using (var streamWriter = new StreamWriter(stream))
             {
                 await streamWriter.WriteAsync("Hello world");
