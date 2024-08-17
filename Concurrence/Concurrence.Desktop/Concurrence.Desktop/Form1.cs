@@ -922,5 +922,40 @@ namespace Concurrence.Desktop
             //Lo mejor es usar Flush
         }
 
+        //PARALELISMO
+        private void button11_Click(object sender, EventArgs e)
+        {
+            loadingGif.Visible = true;
+
+            loadingGif.Visible = false;
+        }
+
+        private void PrepareExecution(string destinationBaseParallel
+            , string destinationBaseSecuential)
+        {
+            if (!Directory.Exists(destinationBaseParallel))
+            {
+                Directory.CreateDirectory(destinationBaseParallel);
+            }
+
+            if (!Directory.Exists(destinationBaseSecuential))
+            {
+                Directory.CreateDirectory(destinationBaseSecuential);
+            }
+
+            DeleteFiles(destinationBaseSecuential);
+            DeleteFiles(destinationBaseParallel);
+        }
+
+        private void DeleteFiles(string directory)
+        {
+            var files = Directory.EnumerateFiles(directory);
+            foreach (var file in files)
+            {
+                File.Delete(file);
+            }
+        }
+
+
     }
 }

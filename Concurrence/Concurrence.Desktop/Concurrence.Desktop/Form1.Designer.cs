@@ -439,7 +439,7 @@
             groupBox6.Size = new Size(416, 84);
             groupBox6.TabIndex = 16;
             groupBox6.TabStop = false;
-            groupBox6.Text = "IEnumerable / Yield";
+            groupBox6.Text = "Paralelismo";
             // 
             // button8
             // 
@@ -476,6 +476,7 @@
             button11.TabIndex = 6;
             button11.Text = "Start";
             button11.UseVisualStyleBackColor = true;
+            button11.Click += button11_Click;
             // 
             // label2
             // 
