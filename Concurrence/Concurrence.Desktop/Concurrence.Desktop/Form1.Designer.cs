@@ -64,6 +64,12 @@
             button5 = new Button();
             button6 = new Button();
             button7 = new Button();
+            groupBox6 = new GroupBox();
+            button8 = new Button();
+            button9 = new Button();
+            button10 = new Button();
+            button11 = new Button();
+            label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -75,11 +81,12 @@
             groupBox3.SuspendLayout();
             groupBox4.SuspendLayout();
             groupBox5.SuspendLayout();
+            groupBox6.SuspendLayout();
             SuspendLayout();
             // 
             // btnStart
             // 
-            btnStart.Location = new Point(13, 75);
+            btnStart.Location = new Point(12, 43);
             btnStart.Name = "btnStart";
             btnStart.Size = new Size(117, 25);
             btnStart.TabIndex = 0;
@@ -90,9 +97,9 @@
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(13, 124);
+            pictureBox1.Location = new Point(12, 74);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(135, 135);
+            pictureBox1.Size = new Size(92, 80);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
@@ -100,16 +107,16 @@
             // pictureBox2
             // 
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(167, 124);
+            pictureBox2.Location = new Point(110, 74);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(261, 172);
+            pictureBox2.Size = new Size(138, 98);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.TabIndex = 2;
             pictureBox2.TabStop = false;
             // 
             // btnStartAsync
             // 
-            btnStartAsync.Location = new Point(205, 75);
+            btnStartAsync.Location = new Point(148, 43);
             btnStartAsync.Name = "btnStartAsync";
             btnStartAsync.Size = new Size(117, 25);
             btnStartAsync.TabIndex = 3;
@@ -120,7 +127,7 @@
             // lblProcesing
             // 
             lblProcesing.AutoSize = true;
-            lblProcesing.Location = new Point(336, 80);
+            lblProcesing.Location = new Point(271, 47);
             lblProcesing.Name = "lblProcesing";
             lblProcesing.Size = new Size(81, 17);
             lblProcesing.TabIndex = 4;
@@ -129,7 +136,7 @@
             // 
             // txtInput
             // 
-            txtInput.Location = new Point(128, 33);
+            txtInput.Location = new Point(61, 6);
             txtInput.Name = "txtInput";
             txtInput.Size = new Size(191, 25);
             txtInput.TabIndex = 5;
@@ -137,7 +144,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(13, 35);
+            label1.Location = new Point(12, 9);
             label1.Name = "label1";
             label1.Size = new Size(43, 17);
             label1.TabIndex = 6;
@@ -148,7 +155,7 @@
             panel1.Controls.Add(btnCancel);
             panel1.Controls.Add(pgProcess);
             panel1.Controls.Add(GetCreditCards);
-            panel1.Location = new Point(13, 320);
+            panel1.Location = new Point(13, 178);
             panel1.Name = "panel1";
             panel1.Size = new Size(415, 110);
             panel1.TabIndex = 7;
@@ -185,7 +192,7 @@
             // 
             panel2.Controls.Add(progressBar1);
             panel2.Controls.Add(btnStart2);
-            panel2.Location = new Point(434, 320);
+            panel2.Location = new Point(434, 261);
             panel2.Name = "panel2";
             panel2.Size = new Size(354, 110);
             panel2.TabIndex = 8;
@@ -324,7 +331,7 @@
             groupBox4.Controls.Add(button2);
             groupBox4.Controls.Add(btnIEnumerableAsync);
             groupBox4.Controls.Add(btnIEnumerable);
-            groupBox4.Location = new Point(12, 436);
+            groupBox4.Location = new Point(12, 377);
             groupBox4.Name = "groupBox4";
             groupBox4.Size = new Size(416, 84);
             groupBox4.TabIndex = 14;
@@ -377,7 +384,7 @@
             groupBox5.Controls.Add(button5);
             groupBox5.Controls.Add(button6);
             groupBox5.Controls.Add(button7);
-            groupBox5.Location = new Point(434, 436);
+            groupBox5.Location = new Point(434, 377);
             groupBox5.Name = "groupBox5";
             groupBox5.Size = new Size(416, 84);
             groupBox5.TabIndex = 15;
@@ -421,11 +428,72 @@
             button7.UseVisualStyleBackColor = true;
             button7.Click += button7_Click;
             // 
+            // groupBox6
+            // 
+            groupBox6.Controls.Add(button8);
+            groupBox6.Controls.Add(button9);
+            groupBox6.Controls.Add(button10);
+            groupBox6.Controls.Add(button11);
+            groupBox6.Location = new Point(13, 482);
+            groupBox6.Name = "groupBox6";
+            groupBox6.Size = new Size(416, 84);
+            groupBox6.TabIndex = 16;
+            groupBox6.TabStop = false;
+            groupBox6.Text = "IEnumerable / Yield";
+            // 
+            // button8
+            // 
+            button8.Location = new Point(136, 53);
+            button8.Name = "button8";
+            button8.Size = new Size(117, 25);
+            button8.TabIndex = 9;
+            button8.Text = "Start Async";
+            button8.UseVisualStyleBackColor = true;
+            // 
+            // button9
+            // 
+            button9.Location = new Point(259, 24);
+            button9.Name = "button9";
+            button9.Size = new Size(117, 25);
+            button9.TabIndex = 8;
+            button9.Text = "Cancel";
+            button9.UseVisualStyleBackColor = true;
+            // 
+            // button10
+            // 
+            button10.Location = new Point(136, 24);
+            button10.Name = "button10";
+            button10.Size = new Size(117, 25);
+            button10.TabIndex = 7;
+            button10.Text = "Start Async";
+            button10.UseVisualStyleBackColor = true;
+            // 
+            // button11
+            // 
+            button11.Location = new Point(13, 24);
+            button11.Name = "button11";
+            button11.Size = new Size(117, 25);
+            button11.TabIndex = 6;
+            button11.Text = "Start";
+            button11.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(12, 464);
+            label2.Name = "label2";
+            label2.Size = new Size(75, 17);
+            label2.TabIndex = 17;
+            label2.Text = "Paralelismo";
+            label2.Visible = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(865, 522);
+            ClientSize = new Size(865, 568);
+            Controls.Add(label2);
+            Controls.Add(groupBox6);
             Controls.Add(groupBox5);
             Controls.Add(groupBox4);
             Controls.Add(groupBox3);
@@ -456,6 +524,7 @@
             groupBox3.ResumeLayout(false);
             groupBox4.ResumeLayout(false);
             groupBox5.ResumeLayout(false);
+            groupBox6.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -498,5 +567,11 @@
         private Button button5;
         private Button button6;
         private Button button7;
+        private GroupBox groupBox6;
+        private Button button8;
+        private Button button9;
+        private Button button10;
+        private Button button11;
+        private Label label2;
     }
 }
