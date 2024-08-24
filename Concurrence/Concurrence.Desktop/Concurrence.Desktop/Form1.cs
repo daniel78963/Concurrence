@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
+using Winforms;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace Concurrence.Desktop
@@ -1083,9 +1084,33 @@ namespace Concurrence.Desktop
             loadingGif.Visible = false;
         }
 
-        private void button9_Click(object sender, EventArgs e)
+        private async void button9_Click(object sender, EventArgs e)
         {
             loadingGif.Visible = true;
+
+            var colMatrizA = 110;
+            var filas = 1000;
+            var colMatrizB = 750;
+            var matrizA = Matrices.InicializarMatriz(filas, colMatrizA);
+            var matrizB = Matrices.InicializarMatriz(colMatrizA, colMatrizB);
+            var result = new double[filas, colMatrizB];
+
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+            await Task.Run(() => Matrices.MultiplicarMatricesSecuencial(matrizA, matrizB, result));
+            var timeSecuencial = stopwatch.ElapsedMilliseconds / 1000;
+            Console.WriteLine("Secuencial - time elapsed in secodns: {0}", timeSecuencial);
+
+            result = new double[filas, colMatrizB];
+            stopwatch.Restart();
+            await Task.Run(() => Matrices.MultiplicarMatricesParalelo(matrizA, matrizB, result));
+            var timeParallel = stopwatch.ElapsedMilliseconds / 1000;
+            Console.WriteLine("Secuencial - time elapsed in secodns: {0}", timeSecuencial);
+
+            Utils.EscribirComparacion(timeSecuencial, timeParallel);
+            Console.WriteLine("End");
+
+            stopwatch.Stop();
 
             loadingGif.Visible = false;
         }
