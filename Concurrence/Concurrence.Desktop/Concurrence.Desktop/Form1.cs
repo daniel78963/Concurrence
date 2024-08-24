@@ -1,14 +1,10 @@
 using Concurrence.Desktop.Helpers;
 using Concurrence.Desktop.Model;
 using Newtonsoft.Json;
-using System;
 using System.Diagnostics;
-using System.Drawing;
-using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Winforms;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Concurrence.Desktop
 {
@@ -1093,9 +1089,9 @@ namespace Concurrence.Desktop
         {
             loadingGif.Visible = true;
 
-            var colMatrizA = 110;
+            var colMatrizA = 1110;
             var filas = 1000;
-            var colMatrizB = 750;
+            var colMatrizB = 1750;
             var matrizA = Matrices.InicializarMatriz(filas, colMatrizA);
             var matrizB = Matrices.InicializarMatriz(colMatrizA, colMatrizB);
             var result = new double[filas, colMatrizB];
@@ -1118,6 +1114,52 @@ namespace Concurrence.Desktop
             stopwatch.Stop();
 
             loadingGif.Visible = false;
+        }
+        private void button8_Click(object sender, EventArgs e)
+        {
+            _ = ParallelForEach();
+        }
+
+        public async Task ParallelForEach()
+        {
+            var directorioActual = AppDomain.CurrentDomain.BaseDirectory;
+            var carpetaOrigen = Path.Combine(directorioActual, @"Imagenes\resultado-secuencial");
+            var carpetaDestinoSecuencial = Path.Combine(directorioActual, @"Imagenes\foreach-secuencial");
+            var carpetaDestinoParalelo = Path.Combine(directorioActual, @"Imagenes\foreach-paralelo");
+            Utils.PrepararEjecucion(carpetaDestinoSecuencial, carpetaDestinoParalelo);
+
+            var archivos = Directory.EnumerateFiles(carpetaOrigen);
+
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            // Algoritmo secuencial
+            foreach (var archivo in archivos)
+            {
+                VoltearImagen(archivo, carpetaDestinoSecuencial);
+            }
+
+            var tiempoSecuencial = stopwatch.ElapsedMilliseconds / 1000.0;
+
+            Console.WriteLine("Secuencial - duración en segundos: {0}",
+                    tiempoSecuencial);
+
+            stopwatch.Restart();
+
+            // Algoritmo en paralelo
+            Parallel.ForEach(archivos, archivo =>
+            {
+                VoltearImagen(archivo, carpetaDestinoParalelo);
+            });
+
+            var tiempoEnParalelo = stopwatch.ElapsedMilliseconds / 1000.0;
+
+            Console.WriteLine("Paralelo - duración en segundos: {0}",
+                   tiempoEnParalelo);
+
+            Utils.EscribirComparacion(tiempoSecuencial, tiempoEnParalelo);
+
+            Console.WriteLine("fin");
         }
     }
 }

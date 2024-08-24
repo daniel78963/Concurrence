@@ -447,8 +447,9 @@
             button8.Name = "button8";
             button8.Size = new Size(117, 25);
             button8.TabIndex = 9;
-            button8.Text = "Start Async";
+            button8.Text = "Parallel.ForEach";
             button8.UseVisualStyleBackColor = true;
+            button8.Click += button8_Click;
             // 
             // button9
             // 
