@@ -70,6 +70,7 @@
             button10 = new Button();
             button11 = new Button();
             label2 = new Label();
+            button12 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -430,6 +431,7 @@
             // 
             // groupBox6
             // 
+            groupBox6.Controls.Add(button12);
             groupBox6.Controls.Add(button8);
             groupBox6.Controls.Add(button9);
             groupBox6.Controls.Add(button10);
@@ -490,6 +492,16 @@
             label2.TabIndex = 17;
             label2.Text = "Paralelismo";
             label2.Visible = false;
+            // 
+            // button12
+            // 
+            button12.Location = new Point(259, 53);
+            button12.Name = "button12";
+            button12.Size = new Size(117, 25);
+            button12.TabIndex = 10;
+            button12.Text = "Parallel.Invoke";
+            button12.UseVisualStyleBackColor = true;
+            button12.Click += button12_Click;
             // 
             // Form1
             // 
@@ -577,5 +589,6 @@
         private Button button10;
         private Button button11;
         private Label label2;
+        private Button button12;
     }
 }
