@@ -456,8 +456,9 @@
             button9.Name = "button9";
             button9.Size = new Size(117, 25);
             button9.TabIndex = 8;
-            button9.Text = "Cancel";
+            button9.Text = "Parallel.For speed";
             button9.UseVisualStyleBackColor = true;
+            button9.Click += button9_Click;
             // 
             // button10
             // 

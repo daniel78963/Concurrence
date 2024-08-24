@@ -1082,5 +1082,12 @@ namespace Concurrence.Desktop
 
             loadingGif.Visible = false;
         }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            loadingGif.Visible = true;
+
+            loadingGif.Visible = false;
+        }
     }
 }
