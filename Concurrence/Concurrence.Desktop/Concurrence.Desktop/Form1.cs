@@ -1086,6 +1086,11 @@ namespace Concurrence.Desktop
 
         private async void button9_Click(object sender, EventArgs e)
         {
+            await ParallelForSpeed();
+        }
+
+        private async Task ParallelForSpeed()
+        {
             loadingGif.Visible = true;
 
             var colMatrizA = 110;
@@ -1098,14 +1103,14 @@ namespace Concurrence.Desktop
             var stopwatch = new Stopwatch();
             stopwatch.Start();
             await Task.Run(() => Matrices.MultiplicarMatricesSecuencial(matrizA, matrizB, result));
-            var timeSecuencial = stopwatch.ElapsedMilliseconds / 1000;
-            Console.WriteLine("Secuencial - time elapsed in secodns: {0}", timeSecuencial);
+            var timeSecuencial = stopwatch.ElapsedMilliseconds / 1000.0;
+            Console.WriteLine("Secuencial - time elapsed in seconds: {0}", timeSecuencial);
 
             result = new double[filas, colMatrizB];
             stopwatch.Restart();
             await Task.Run(() => Matrices.MultiplicarMatricesParalelo(matrizA, matrizB, result));
-            var timeParallel = stopwatch.ElapsedMilliseconds / 1000;
-            Console.WriteLine("Secuencial - time elapsed in secodns: {0}", timeSecuencial);
+            var timeParallel = stopwatch.ElapsedMilliseconds / 1000.0;
+            Console.WriteLine("Parallel - time elapsed in seconds: {0}", timeParallel);
 
             Utils.EscribirComparacion(timeSecuencial, timeParallel);
             Console.WriteLine("End");
