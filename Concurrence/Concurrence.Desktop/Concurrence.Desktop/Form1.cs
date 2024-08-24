@@ -1123,9 +1123,10 @@ namespace Concurrence.Desktop
         public async Task ParallelForEach()
         {
             var directorioActual = AppDomain.CurrentDomain.BaseDirectory;
-            var carpetaOrigen = Path.Combine(directorioActual, @"Imagenes\resultado-secuencial");
-            var carpetaDestinoSecuencial = Path.Combine(directorioActual, @"Imagenes\foreach-secuencial");
-            var carpetaDestinoParalelo = Path.Combine(directorioActual, @"Imagenes\foreach-paralelo");
+            //need images in next folder, previous exercise
+            var carpetaOrigen = Path.Combine(directorioActual, @"D:\tmpBlazorFiles\secuentialResult");
+            var carpetaDestinoSecuencial = Path.Combine(directorioActual, @"D:\tmpBlazorFiles\foreach-secuencial");
+            var carpetaDestinoParalelo = Path.Combine(directorioActual, @"D:\tmpBlazorFiles\foreach-paralelo");
             Utils.PrepararEjecucion(carpetaDestinoSecuencial, carpetaDestinoParalelo);
 
             var archivos = Directory.EnumerateFiles(carpetaOrigen);
@@ -1160,6 +1161,17 @@ namespace Concurrence.Desktop
             Utils.EscribirComparacion(tiempoSecuencial, tiempoEnParalelo);
 
             Console.WriteLine("fin");
+        }
+
+        private void VoltearImagen(string archivo, string carpetaDestino)
+        {
+            using (var image = new Bitmap(archivo))
+            {
+                image.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                var nombreArchivo = Path.GetFileName(archivo);
+                var destino = Path.Combine(carpetaDestino, nombreArchivo);
+                image.Save(destino);
+            }
         }
     }
 }
