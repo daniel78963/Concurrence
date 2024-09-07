@@ -1115,7 +1115,7 @@ namespace Concurrence.Desktop
                 Console.WriteLine("Operation cancelled");
             }
             finally
-            { 
+            {
                 cancellationTokenSource.Dispose();
             }
 
@@ -1255,5 +1255,9 @@ namespace Concurrence.Desktop
             Console.WriteLine("fin");
         }
 
+        private void button13_Click(object sender, EventArgs e)
+        {
+            cancellationTokenSource?.Cancel();
+        }
     }
 }

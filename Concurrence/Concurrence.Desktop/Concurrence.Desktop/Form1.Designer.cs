@@ -65,12 +65,13 @@
             button6 = new Button();
             button7 = new Button();
             groupBox6 = new GroupBox();
+            button12 = new Button();
             button8 = new Button();
             button9 = new Button();
             button10 = new Button();
             button11 = new Button();
             label2 = new Label();
-            button12 = new Button();
+            button13 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -431,6 +432,7 @@
             // 
             // groupBox6
             // 
+            groupBox6.Controls.Add(button13);
             groupBox6.Controls.Add(button12);
             groupBox6.Controls.Add(button8);
             groupBox6.Controls.Add(button9);
@@ -442,6 +444,16 @@
             groupBox6.TabIndex = 16;
             groupBox6.TabStop = false;
             groupBox6.Text = "Paralelismo";
+            // 
+            // button12
+            // 
+            button12.Location = new Point(259, 53);
+            button12.Name = "button12";
+            button12.Size = new Size(117, 25);
+            button12.TabIndex = 10;
+            button12.Text = "Parallel.Invoke";
+            button12.UseVisualStyleBackColor = true;
+            button12.Click += button12_Click;
             // 
             // button8
             // 
@@ -493,15 +505,15 @@
             label2.Text = "Paralelismo";
             label2.Visible = false;
             // 
-            // button12
+            // button13
             // 
-            button12.Location = new Point(259, 53);
-            button12.Name = "button12";
-            button12.Size = new Size(117, 25);
-            button12.TabIndex = 10;
-            button12.Text = "Parallel.Invoke";
-            button12.UseVisualStyleBackColor = true;
-            button12.Click += button12_Click;
+            button13.Location = new Point(12, 53);
+            button13.Name = "button13";
+            button13.Size = new Size(117, 25);
+            button13.TabIndex = 11;
+            button13.Text = "Cancel";
+            button13.UseVisualStyleBackColor = true;
+            button13.Click += button13_Click;
             // 
             // Form1
             // 
@@ -590,5 +602,6 @@
         private Button button11;
         private Label label2;
         private Button button12;
+        private Button button13;
     }
 }
