@@ -1105,7 +1105,20 @@ namespace Concurrence.Desktop
 
             result = new double[filas, colMatrizB];
             stopwatch.Restart();
-            await Task.Run(() => Matrices.MultiplicarMatricesParalelo(matrizA, matrizB, result));
+
+            try
+            {
+                await Task.Run(() => Matrices.MultiplicarMatricesParalelo(matrizA, matrizB, result, cancellationTokenSource.Token));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Operation cancelled");
+            }
+            finally
+            { 
+                cancellationTokenSource.Dispose();
+            }
+
             var timeParallel = stopwatch.ElapsedMilliseconds / 1000.0;
             Console.WriteLine("Parallel - time elapsed in seconds: {0}", timeParallel);
 
@@ -1115,6 +1128,7 @@ namespace Concurrence.Desktop
             stopwatch.Stop();
 
             loadingGif.Visible = false;
+            cancellationTokenSource = null;
         }
         private void button8_Click(object sender, EventArgs e)
         {
@@ -1187,7 +1201,7 @@ namespace Concurrence.Desktop
             var carpetaOrigen = Path.Combine(directorioActual, @"D:\tmpBlazorFiles\secuentialResult");
             var carpetaDestinoSecuencial = Path.Combine(directorioActual, @"D:\tmpBlazorFiles\foreach-secuencial");
             var carpetaDestinoParalelo = Path.Combine(directorioActual, @"D:\tmpBlazorFiles\foreach-paralelo");
-             
+
             Utils.PrepararEjecucion(carpetaDestinoSecuencial, carpetaDestinoParalelo);
             var archivos = Directory.EnumerateFiles(carpetaOrigen);
 
