@@ -1095,6 +1095,7 @@ namespace Concurrence.Desktop
             var matrizA = Matrices.InicializarMatriz(filas, colMatrizA);
             var matrizB = Matrices.InicializarMatriz(colMatrizA, colMatrizB);
             var result = new double[filas, colMatrizB];
+            cancellationTokenSource = new CancellationTokenSource();
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
