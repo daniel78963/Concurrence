@@ -1260,10 +1260,8 @@ namespace Concurrence.Desktop
             cancellationTokenSource?.Cancel();
         }
 
-        private async Task  RealiceMaxParallel(int maxStageParallel)
+        private async Task RealiceMaxParallel(int maxDegreeParallel)
         {
-            loadingGif.Visible = true;
-
             var colMatrizA = 1110;
             var filas = 1000;
             var colMatrizB = 1750;
@@ -1283,8 +1281,9 @@ namespace Concurrence.Desktop
 
             try
             {
-                await Task.Run(() => Matrices.MultiplicarMatricesParalelo(matrizA, matrizB, result, cancellationTokenSource.Token));
-                Console.WriteLine($"Maximum degree: {maxStageParallel}; time: {stopwatch.ElapsedMilliseconds / 1000.0}");
+                await Task.Run(() => Matrices.MultiplicarMatricesParalelo(
+                    matrizA, matrizB, result, cancellationTokenSource.Token));
+                Console.WriteLine($"Maximum degree: {maxDegreeParallel}; time: {stopwatch.ElapsedMilliseconds / 1000.0}");
             }
             catch (Exception ex)
             {
@@ -1294,13 +1293,26 @@ namespace Concurrence.Desktop
             {
                 cancellationTokenSource.Dispose();
             }
-             
+
             Console.WriteLine("End");
-
             stopwatch.Stop();
-
-            loadingGif.Visible = false;
             cancellationTokenSource = null;
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            _ = CallRealiceMaxParallel();
+        }
+
+        private async Task CallRealiceMaxParallel()
+        {
+            loadingGif.Visible = true;
+            int maxNumberProcessors = 6;
+            for (int i = 0; i < maxNumberProcessors; i++)
+            {
+                await RealiceMaxParallel(i);
+            }
+            loadingGif.Visible = false;
         }
     }
 }
