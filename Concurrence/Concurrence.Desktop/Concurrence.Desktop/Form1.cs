@@ -1259,5 +1259,52 @@ namespace Concurrence.Desktop
         {
             cancellationTokenSource?.Cancel();
         }
+
+        private async Task  RealiceMaxParallel(int maxStageParallel)
+        {
+            loadingGif.Visible = true;
+
+            var colMatrizA = 1110;
+            var filas = 1000;
+            var colMatrizB = 1750;
+            var matrizA = Matrices.InicializarMatriz(filas, colMatrizA);
+            var matrizB = Matrices.InicializarMatriz(colMatrizA, colMatrizB);
+            var result = new double[filas, colMatrizB];
+            cancellationTokenSource = new CancellationTokenSource();
+
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+            //await Task.Run(() => Matrices.MultiplicarMatricesSecuencial(matrizA, matrizB, result));
+            //var timeSecuencial = stopwatch.ElapsedMilliseconds / 1000.0;
+            //Console.WriteLine("Secuencial - time elapsed in seconds: {0}", timeSecuencial);
+
+            //result = new double[filas, colMatrizB];
+            //stopwatch.Restart();
+
+            try
+            {
+                await Task.Run(() => Matrices.MultiplicarMatricesParalelo(matrizA, matrizB, result, cancellationTokenSource.Token));
+                Console.WriteLine($"Maximum degree: {maxStageParallel}; time: {stopwatch.ElapsedMilliseconds / 1000.0}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Operation cancelled");
+            }
+            finally
+            {
+                cancellationTokenSource.Dispose();
+            }
+
+            var timeParallel = stopwatch.ElapsedMilliseconds / 1000.0;
+            Console.WriteLine("Parallel - time elapsed in seconds: {0}", timeParallel);
+
+            Utils.EscribirComparacion(timeSecuencial, timeParallel);
+            Console.WriteLine("End");
+
+            stopwatch.Stop();
+
+            loadingGif.Visible = false;
+            cancellationTokenSource = null;
+        }
     }
 }
