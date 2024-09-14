@@ -1294,11 +1294,7 @@ namespace Concurrence.Desktop
             {
                 cancellationTokenSource.Dispose();
             }
-
-            var timeParallel = stopwatch.ElapsedMilliseconds / 1000.0;
-            Console.WriteLine("Parallel - time elapsed in seconds: {0}", timeParallel);
-
-            Utils.EscribirComparacion(timeSecuencial, timeParallel);
+             
             Console.WriteLine("End");
 
             stopwatch.Stop();
