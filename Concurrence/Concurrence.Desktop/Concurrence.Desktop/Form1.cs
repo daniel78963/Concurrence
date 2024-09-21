@@ -1271,7 +1271,7 @@ namespace Concurrence.Desktop
             cancellationTokenSource = new CancellationTokenSource();
 
             var stopwatch = new Stopwatch();
-            stopwatch.Start(); 
+            stopwatch.Start();
             try
             {
                 await Task.Run(() => Matrices.MultiplicarMatricesParalelo(
@@ -1297,13 +1297,34 @@ namespace Concurrence.Desktop
 
         private async Task CallRealiceMaxParallel()
         {
-            loadingGif.Visible = true; 
+            loadingGif.Visible = true;
             int maxNumberProcessors = 8;
             Console.WriteLine("Start");
             for (int i = 1; i < maxNumberProcessors; i++)
             {
                 await RealiceMaxParallel(i);
-            } 
+            }
+            Console.WriteLine("End");
+            loadingGif.Visible = false;
+        }
+
+        private void button21_Click(object sender, EventArgs e)
+        {
+            _ = CallInterlock();
+        }
+
+        private async Task CallInterlock()
+        {
+            loadingGif.Visible = true;
+            
+            var  valueWithoutInterlock = 0;
+            Parallel.For(0, 1000000, number => valueWithoutInterlock++);
+            Console.WriteLine($"value without interloked: {valueWithoutInterlock}");
+
+            var valueWithInterlock = 0;
+            Parallel.For(0, 1000000, number => Interlocked.Increment(ref valueWithInterlock));
+            Console.WriteLine($"value with interloked: {valueWithInterlock}");
+
             Console.WriteLine("End");
             loadingGif.Visible = false;
         }

@@ -559,6 +559,7 @@
             button21.TabIndex = 6;
             button21.Text = "Interlock";
             button21.UseVisualStyleBackColor = true;
+            button21.Click += button21_Click;
             // 
             // Form1
             // 
