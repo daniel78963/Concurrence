@@ -65,6 +65,7 @@
             button6 = new Button();
             button7 = new Button();
             groupBox6 = new GroupBox();
+            button14 = new Button();
             button13 = new Button();
             button12 = new Button();
             button8 = new Button();
@@ -72,7 +73,9 @@
             button10 = new Button();
             button11 = new Button();
             label2 = new Label();
-            button14 = new Button();
+            groupBox7 = new GroupBox();
+            button16 = new Button();
+            button21 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -85,6 +88,7 @@
             groupBox4.SuspendLayout();
             groupBox5.SuspendLayout();
             groupBox6.SuspendLayout();
+            groupBox7.SuspendLayout();
             SuspendLayout();
             // 
             // btnStart
@@ -447,6 +451,16 @@
             groupBox6.TabStop = false;
             groupBox6.Text = "Paralelismo";
             // 
+            // button14
+            // 
+            button14.Location = new Point(136, 83);
+            button14.Name = "button14";
+            button14.Size = new Size(240, 25);
+            button14.TabIndex = 12;
+            button14.Text = "Parallel Max Degree";
+            button14.UseVisualStyleBackColor = true;
+            button14.Click += button14_Click;
+            // 
             // button13
             // 
             button13.Location = new Point(12, 53);
@@ -517,21 +531,41 @@
             label2.Text = "Paralelismo";
             label2.Visible = false;
             // 
-            // button14
+            // groupBox7
             // 
-            button14.Location = new Point(136, 83);
-            button14.Name = "button14";
-            button14.Size = new Size(240, 25);
-            button14.TabIndex = 12;
-            button14.Text = "Parallel Max Degree";
-            button14.UseVisualStyleBackColor = true;
-            button14.Click += button14_Click;
+            groupBox7.Controls.Add(button16);
+            groupBox7.Controls.Add(button21);
+            groupBox7.Location = new Point(437, 482);
+            groupBox7.Name = "groupBox7";
+            groupBox7.Size = new Size(416, 114);
+            groupBox7.TabIndex = 17;
+            groupBox7.TabStop = false;
+            groupBox7.Text = "Seguridad ";
+            // 
+            // button16
+            // 
+            button16.Location = new Point(12, 53);
+            button16.Name = "button16";
+            button16.Size = new Size(117, 25);
+            button16.TabIndex = 11;
+            button16.Text = "Cancel";
+            button16.UseVisualStyleBackColor = true;
+            // 
+            // button21
+            // 
+            button21.Location = new Point(13, 24);
+            button21.Name = "button21";
+            button21.Size = new Size(117, 25);
+            button21.TabIndex = 6;
+            button21.Text = "Interlock";
+            button21.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(865, 608);
+            Controls.Add(groupBox7);
             Controls.Add(label2);
             Controls.Add(groupBox6);
             Controls.Add(groupBox5);
@@ -565,6 +599,7 @@
             groupBox4.ResumeLayout(false);
             groupBox5.ResumeLayout(false);
             groupBox6.ResumeLayout(false);
+            groupBox7.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -616,5 +651,8 @@
         private Button button12;
         private Button button13;
         private Button button14;
+        private GroupBox groupBox7;
+        private Button button16;
+        private Button button21;
     }
 }
