@@ -76,6 +76,7 @@
             groupBox7 = new GroupBox();
             button16 = new Button();
             button21 = new Button();
+            button15 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -533,6 +534,7 @@
             // 
             // groupBox7
             // 
+            groupBox7.Controls.Add(button15);
             groupBox7.Controls.Add(button16);
             groupBox7.Controls.Add(button21);
             groupBox7.Location = new Point(437, 482);
@@ -560,6 +562,16 @@
             button21.Text = "Interlock";
             button21.UseVisualStyleBackColor = true;
             button21.Click += button21_Click;
+            // 
+            // button15
+            // 
+            button15.Location = new Point(133, 24);
+            button15.Name = "button15";
+            button15.Size = new Size(117, 25);
+            button15.TabIndex = 12;
+            button15.Text = "lock";
+            button15.UseVisualStyleBackColor = true;
+            button15.Click += button15_Click;
             // 
             // Form1
             // 
@@ -655,5 +667,6 @@
         private GroupBox groupBox7;
         private Button button16;
         private Button button21;
+        private Button button15;
     }
 }

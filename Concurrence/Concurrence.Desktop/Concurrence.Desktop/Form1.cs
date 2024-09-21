@@ -1316,14 +1316,39 @@ namespace Concurrence.Desktop
         private async Task CallInterlock()
         {
             loadingGif.Visible = true;
-            
-            var  valueWithoutInterlock = 0;
+            Console.WriteLine("Start");
+
+            var valueWithoutInterlock = 0;
             Parallel.For(0, 1000000, number => valueWithoutInterlock++);
             Console.WriteLine($"value without interloked: {valueWithoutInterlock}");
 
             var valueWithInterlock = 0;
             Parallel.For(0, 1000000, number => Interlocked.Increment(ref valueWithInterlock));
             Console.WriteLine($"value with interloked: {valueWithInterlock}");
+
+            Console.WriteLine("End");
+            loadingGif.Visible = false;
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            Calllock();
+        }
+
+        private void Calllock()
+        {
+            loadingGif.Visible = true;
+            Console.WriteLine("Begin");
+
+            var valueIncremented = 0;
+            var valuePlus = 0;
+
+            //doen´t work with Interlocked
+            Parallel.For(0, 10000, number =>
+            {
+                Interlocked.Increment(ref valueIncremented);
+                Interlocked.Add(ref valuePlus, valueIncremented);
+            });
 
             Console.WriteLine("End");
             loadingGif.Visible = false;
