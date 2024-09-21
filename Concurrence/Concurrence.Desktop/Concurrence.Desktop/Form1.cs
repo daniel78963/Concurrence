@@ -1343,12 +1343,29 @@ namespace Concurrence.Desktop
             var valueIncremented = 0;
             var valuePlus = 0;
 
-            //doen´t work with Interlocked
+            ////doesn´t work with Interlocked
+            //Parallel.For(0, 10000, number =>
+            //{
+            //    Interlocked.Increment(ref valueIncremented);
+            ////otro hilo puede volver a ejecutar la línea de arriba mientras se
+            ////ejecuta la línea de abajo, por eso no sirve çon interlocked
+            //    Interlocked.Add(ref valuePlus, valueIncremented);
+            //});
+
+            var mutex = new object();
             Parallel.For(0, 10000, number =>
             {
-                Interlocked.Increment(ref valueIncremented);
-                Interlocked.Add(ref valuePlus, valueIncremented);
+                //inside of lock have only one thread
+                lock (mutex)
+                {
+                    valueIncremented++;
+                    valuePlus += valueIncremented;
+                }
             });
+
+            Console.WriteLine($"value incremented: {valueIncremented}");
+            Console.WriteLine($"value total: {valuePlus}");
+            Console.WriteLine("---------");
 
             Console.WriteLine("End");
             loadingGif.Visible = false;
