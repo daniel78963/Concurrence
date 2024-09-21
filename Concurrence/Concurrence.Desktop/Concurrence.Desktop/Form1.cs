@@ -1364,10 +1364,10 @@ namespace Concurrence.Desktop
             });
 
             Console.WriteLine($"value incremented: {valueIncremented}");
-            Console.WriteLine($"value total: {valuePlus}");
+            Console.WriteLine($"value total: {valuePlus}"); 
+            Console.WriteLine("End");
             Console.WriteLine("---------");
 
-            Console.WriteLine("End");
             loadingGif.Visible = false;
         }
     }
