@@ -1445,5 +1445,23 @@ namespace Concurrence.Desktop
             Console.WriteLine("---------");
             loadingGif.Visible = false;
         }
+
+        private void button19_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("inicio");
+
+            var queryParalelo = Enumerable.Range(1, 10).AsParallel()
+                .WithDegreeOfParallelism(2).Select(x => Matrices.InicializarMatriz(100, 100));
+
+            // Procesa todo junto
+            //foreach (var matriz in queryParalelo)
+            //{
+            //    Console.WriteLine(matriz[0, 0]);
+            //}
+
+            queryParalelo.ForAll(matriz => Console.WriteLine(matriz[0, 0]));
+
+            Console.WriteLine("fin");
+        }
     }
 }
