@@ -1380,7 +1380,8 @@ namespace Concurrence.Desktop
             loadingGif.Visible = true;
             Console.WriteLine("Begin");
 
-
+            var source = Enumerable.Range(1, 10000);
+            var elementsPair = source.AsParallel().Where(x => x % 2 == 0).ToList();
 
             Console.WriteLine("End");
             Console.WriteLine("---------");
