@@ -1364,10 +1364,26 @@ namespace Concurrence.Desktop
             });
 
             Console.WriteLine($"value incremented: {valueIncremented}");
-            Console.WriteLine($"value total: {valuePlus}"); 
+            Console.WriteLine($"value total: {valuePlus}");
             Console.WriteLine("End");
             Console.WriteLine("---------");
+            loadingGif.Visible = false;
+        }
 
+        private void button17_Click(object sender, EventArgs e)
+        {
+            _ = CallPLINQ();
+        }
+
+        private async Task CallPLINQ()
+        {
+            loadingGif.Visible = true;
+            Console.WriteLine("Begin");
+
+
+
+            Console.WriteLine("End");
+            Console.WriteLine("---------");
             loadingGif.Visible = false;
         }
     }

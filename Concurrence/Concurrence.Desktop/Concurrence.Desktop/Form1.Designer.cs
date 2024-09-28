@@ -74,9 +74,10 @@
             button11 = new Button();
             label2 = new Label();
             groupBox7 = new GroupBox();
+            button15 = new Button();
             button16 = new Button();
             button21 = new Button();
-            button15 = new Button();
+            button17 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -534,6 +535,7 @@
             // 
             // groupBox7
             // 
+            groupBox7.Controls.Add(button17);
             groupBox7.Controls.Add(button15);
             groupBox7.Controls.Add(button16);
             groupBox7.Controls.Add(button21);
@@ -543,6 +545,16 @@
             groupBox7.TabIndex = 17;
             groupBox7.TabStop = false;
             groupBox7.Text = "Seguridad ";
+            // 
+            // button15
+            // 
+            button15.Location = new Point(133, 24);
+            button15.Name = "button15";
+            button15.Size = new Size(117, 25);
+            button15.TabIndex = 12;
+            button15.Text = "lock";
+            button15.UseVisualStyleBackColor = true;
+            button15.Click += button15_Click;
             // 
             // button16
             // 
@@ -563,15 +575,15 @@
             button21.UseVisualStyleBackColor = true;
             button21.Click += button21_Click;
             // 
-            // button15
+            // button17
             // 
-            button15.Location = new Point(133, 24);
-            button15.Name = "button15";
-            button15.Size = new Size(117, 25);
-            button15.TabIndex = 12;
-            button15.Text = "lock";
-            button15.UseVisualStyleBackColor = true;
-            button15.Click += button15_Click;
+            button17.Location = new Point(133, 53);
+            button17.Name = "button17";
+            button17.Size = new Size(117, 25);
+            button17.TabIndex = 13;
+            button17.Text = "PLINQ";
+            button17.UseVisualStyleBackColor = true;
+            button17.Click += button17_Click;
             // 
             // Form1
             // 
@@ -668,5 +680,6 @@
         private Button button16;
         private Button button21;
         private Button button15;
+        private Button button17;
     }
 }
