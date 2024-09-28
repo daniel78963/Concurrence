@@ -1380,9 +1380,67 @@ namespace Concurrence.Desktop
             loadingGif.Visible = true;
             Console.WriteLine("Begin");
 
-            var source = Enumerable.Range(1, 10000);
-            var elementsPair = source.AsParallel().Where(x => x % 2 == 0).ToList();
+            cancellationTokenSource = new CancellationTokenSource();
 
+            var source = Enumerable.Range(1, 20);
+            //var elementsPair = source.AsParallel().Where(x => x % 2 == 0).ToList();
+            //var elementsPair = source.AsParallel().AsOrdered().Where(x => x % 2 == 0).ToList();
+            var elementsPair = source
+                .AsParallel()
+                .WithDegreeOfParallelism(4)
+                .WithCancellation(cancellationTokenSource.Token)
+                //.AsOrdered()
+                .Where(x => x % 2 == 0)
+                .ToList();
+
+            foreach (var number in elementsPair)
+            {
+                Console.WriteLine(number);
+            }
+
+            Console.WriteLine("End");
+            Console.WriteLine("---------");
+            loadingGif.Visible = false;
+        }
+
+        private void button18_Click(object sender, EventArgs e)
+        {
+            loadingGif.Visible = true;
+            Console.WriteLine("Begin");
+
+            cancellationTokenSource = new CancellationTokenSource();
+
+            //var source = Enumerable.Range(1, 1000);
+
+            //var sum = source.AsParallel().Sum();
+            //var avg = source.AsParallel().Average();
+
+            //Console.WriteLine($"La suma es {sum}");
+            //Console.WriteLine($"El promedio es {avg}");
+
+            var matrices = Enumerable.Range(1, 500).Select(x => Matrices.InicializarMatriz(100, 100)).ToList();
+            Console.WriteLine("Matrices Generadas");
+
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            var sumaMatricesSecuencial = matrices.Aggregate(Matrices.SumarMatricesSecuencial);
+
+            var tiempoSecuencial = stopwatch.ElapsedMilliseconds / 1000.0;
+
+            Console.WriteLine("Secuencial - duración en segundos: {0}",
+                    tiempoSecuencial);
+
+            stopwatch.Restart();
+
+            var sumaMatricesParalelo = matrices.AsParallel().Aggregate(Matrices.SumarMatricesSecuencial);
+
+            var tiempoParalelo = stopwatch.ElapsedMilliseconds / 1000.0;
+
+            Console.WriteLine("Paralelo - duración en segundos: {0}",
+                    tiempoParalelo);
+
+            Utils.EscribirComparacion(tiempoSecuencial, tiempoParalelo);
             Console.WriteLine("End");
             Console.WriteLine("---------");
             loadingGif.Visible = false;
